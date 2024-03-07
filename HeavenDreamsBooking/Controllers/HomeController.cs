@@ -1,4 +1,5 @@
-﻿using HeavenDreamsBooking.Models;
+﻿using HeavenDreamsBooking.Core.Contracts;
+using HeavenDreamsBooking.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +7,18 @@ namespace HeavenDreamsBooking.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+       // private readonly ILogger<HomeController> _logger;
+        private readonly IFlightService _flightService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IFlightService flightService)
         {
-            _logger = logger;
+            _flightService = flightService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var flights = await _flightService.AllFlights();
+            return View(flights);
         }
 
         public IActionResult Privacy()

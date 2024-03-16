@@ -3,29 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HeavenDreamsBooking</title>
+    <title>@ViewData["Title"] - Heaven Dreans Booking System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HeavenDreamsBooking.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HeavenDreansBookingTest.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HeavenDreamsBooking</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Heaven Dreans Booking Worlwide</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                      @*   <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li> *@
-                    </ul>
+                    @* <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    </ul> *@
+                    @await Component.InvokeAsync(nameof(MainMenuComponent))
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -36,10 +37,20 @@
             @RenderBody()
         </main>
     </div>
-     <footer class="border-top footer text-muted" style="height:auto; background-color:#F7C201">
+
+    <footer class="border-top footer text-muted" style="height:auto; background-color:#F7C201">
         <div class="container">
-            Copyright &copy; @DateTime.Today.Year - HeavenDreansBookingTest Ltd.  All rights reserved
-         </div>       
+            @* Copyright &copy; @DateTime.Today.Year - HeavenDreansBookingTest Ltd.  All rights reserved *@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Copyright &copy; @DateTime.Today.Year - HeavenDreansBooking Ltd.  All rights reserved - <u>Privacy</u></a>
+        </div>
+        @* <div class="container"><ul class="et-social-icons"><li class="et-social-icon et-social-facebook">
+        <a href="https://www.facebook.com/dbdesignerofficial" target="_blank" class="icon">
+        <span>Facebook</span> </a>
+        </li>
+        <li class="et-social-icon et-social-twitter">
+        <a href="https://twitter.com/intent/follow?screen_name=dbdsgnr" target="_blank" class="icon">
+        <span>Twitter</span> </a></li></ul><div id="footer-info">Copyright @DateTime.Today.Year, DB Designer. All Rights Reserved </div>
+        </div> *@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

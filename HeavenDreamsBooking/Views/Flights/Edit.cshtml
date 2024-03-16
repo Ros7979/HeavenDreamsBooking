@@ -1,0 +1,88 @@
+﻿@model FlightFormModel
+@{
+    ViewBag.Title = "Edit Flight Detail";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.FltNo" class="form-label-add-edit">Flight Number</label>
+                <input asp-for="@Model.FltNo" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.FltNo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.From" class="form-label-add-edit">From</label>
+                <input asp-for="@Model.From" class="form-control" aria-required="true" rows="5" />
+                <span asp-validation-for="@Model.From" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Destination" class="form-label-add-edit">Destination</label>
+                <input asp-for="@Model.Destination" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Destination" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageUrl" class="form-label-add-edit">Image Url Address</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.DepTime" class="form-label-add-edit">Departure Time</label>
+                <input asp-for="@Model.DepTime" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.DepTime" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ArrTime" class="form-label-add-edit">Arrival Time</label>
+                <input asp-for="@Model.ArrTime" class="form-control" aria-required="true"  />
+                <span asp-validation-for="@Model.ArrTime" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.AircraftType" class="form-label-add-edit">Aircraft Type</label>
+                <input asp-for="@Model.AircraftType" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.AircraftType" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.SeatsBusiness" class="form-label-add-edit">Seats (Business)</label>
+                <input asp-for="@Model.SeatsBusiness" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.SeatsBusiness" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.SeatsEconomy" class="form-label-add-edit">Seats (Economy)</label>
+                <input asp-for="@Model.SeatsEconomy" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.SeatsEconomy" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.FareBusiness" class="form-label-add-edit">Fare (Business)</label>
+                <div class="input-group">
+                    <input asp-for="@Model.FareBusiness" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">лв.</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.FareBusiness" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.FareEconomy" class="form-label-add-edit">Fare (Economy)</label>
+                <div class="input-group">
+                    <input asp-for="@Model.FareEconomy" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">лв.</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.FareEconomy" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary mb-2 w-100 p-3 fw-bold" type="submit" value="Edit" />
+              @*   <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="reset" value="Clear" /> *@
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HeavenDreamsBookingTest.Components
+namespace HeavenDreamsBooking.Components
 {
     public class MainMenuComponent : ViewComponent
     {

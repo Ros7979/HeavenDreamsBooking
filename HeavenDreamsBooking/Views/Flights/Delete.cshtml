@@ -1,0 +1,41 @@
+﻿@model FlightDetailsModel
+
+@{
+    ViewBag.Title = "Delete Flight";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<form asp-action="Delete">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="card-img-top" src="@Model.ImageUrl" alt="Flight Image">
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="FltNo" class="control-label"></label>
+                <input asp-for="FltNo" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="From" class="control-label"></label>
+                <input asp-for="From" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Destination" class="control-label"></label>
+                <input asp-for="Destination" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DepTime" class="control-label"></label>
+                <input asp-for="DepTime" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrTime" class="control-label"></label>
+                <input asp-for="ArrTime" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>

@@ -8,7 +8,7 @@
 @if (!flights.Any())
 {
     <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">Welcome to the best place for renting houses!</h1>
+        <h1 class="display-4">Welcome to the best place for renting flights!</h1>
         <p class="lead">
             There are no houses in the system currently available
             so why don't you just add one?
@@ -18,7 +18,7 @@
             @if (User.Identity!.IsAuthenticated)
             {
                 <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg"
-                   role="button">Add House</a>
+                   role="button">Add Flight</a>
             }
         </p>
     </div>
@@ -39,7 +39,7 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
                         @* <a class="btn btn-primary" asp-controller="House" asp-action="Details"
-                    asp-route-id="@flight.Id">От : @flight.From - @flight.Destination</a> *@
+                           asp-route-id="@flight.Id">От : @flight.From - @flight.Destination</a> *@
                     </h5>
                 </div>
             </div>
@@ -54,3 +54,4 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+

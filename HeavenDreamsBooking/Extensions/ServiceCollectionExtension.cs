@@ -1,6 +1,7 @@
 ﻿using HeavenDreamsBooking.Core.Contracts;
 using HeavenDreamsBooking.Core.Services.Flight;
-using HeavenDreamsBookingTest.Infrastrucure.Data;
+using HeavenDreamsBooking.Infrastrucure.Data;
+using HeavenDreamsBooking.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

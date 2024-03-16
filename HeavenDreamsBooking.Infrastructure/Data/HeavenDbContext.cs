@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HeavenDreamsBookingTest.Infrastrucure.Data
+namespace HeavenDreamsBooking.Infrastrucure.Data
 {
     public class HeavenDbContext : IdentityDbContext
     {

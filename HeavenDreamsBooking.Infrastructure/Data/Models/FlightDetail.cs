@@ -11,7 +11,7 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         /// <summary>
         /// Number of the flight
         /// </summary>
-
+        [Required]
         [MaxLength(FltNoMaxLength)]
         public string FltNo { get; set; } = null!;
 

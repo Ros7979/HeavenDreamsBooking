@@ -36,8 +36,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.ArrTime" class="form-label-add-edit">Arrival Time</label>
-                <input asp-for="@Model.ArrTime" class="form-control" aria-required="true" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" />
-               @*  <input asp-for="@Model.ArrTime" class="form-control" aria-required="true" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" /> *@
+                <input asp-for="@Model.ArrTime" class="form-control" aria-required="true" />               
                 <span asp-validation-for="@Model.ArrTime" class="text-danger"></span>
             </div>
             <div class="mb-3">

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HeavenDreansBookingTest.Attributes;
+using System.ComponentModel.DataAnnotations;
 using static HeavenDreamsBooking.Infrastructure.Constants.DataConstants.FltDetailsConst;
 namespace HeavenDreamsBooking.Core.Models.Flight
 {
@@ -24,10 +25,11 @@ namespace HeavenDreamsBooking.Core.Models.Flight
         public string ImageUrl { get; set; } = null!;
              
         [Required]
-        //[IsGreater(ErrorMessage ="The date should be greater then the current date")]
+        [IsGreater(ErrorMessage ="The date should be greater then the current date")]
         public DateTime DepTime { get; set; }
              
         [Required]
+        [IsGreater(ErrorMessage = "The date should be greater then the current date")]
         public DateTime ArrTime { get; set; }
 
         [Required]

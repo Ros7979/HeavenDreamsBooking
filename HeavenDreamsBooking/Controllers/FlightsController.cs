@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HeavenDreansBookingTest.Controllers
 {
-    [Authorize]
+   // [Authorize(Roles = "BusinessManager")]
     public class FlightsController : Controller
     {
         private readonly IFlightService _flightService;

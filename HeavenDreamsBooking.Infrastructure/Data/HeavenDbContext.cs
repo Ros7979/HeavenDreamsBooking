@@ -107,8 +107,8 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             BusinessManagerUser = new IdentityUser()
             {
                 Id = "bsm12345-b345-s678-m123-b1s2m3456789",
-                UserName = "Ivan Stamenov",
-                NormalizedUserName = "Ivan Stamenov",
+                UserName = "isbusinessmanager@mail.bg",
+                NormalizedUserName = "isbusinessmanager@mail.bg",
                 Email = "isbusinessmanager@mail.bg",
                 NormalizedEmail = "isbusinessmanager@mail.bg"
             };
@@ -117,10 +117,10 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             AdminUser = new IdentityUser()
             {
                 Id = "adm12345-a345-d678-m321-a3d2m1987654",
-                UserName = "Petar Vasilev",
-                NormalizedUserName = "Petar Vasilev",
+                UserName = "pvadminuser@mail.bg",
+                NormalizedUserName = "pvadminuser@mail.bg",
                 Email = "pvadminuser@mail.bg",
-                NormalizedEmail = "isadminuser@mail.bg"
+                NormalizedEmail = "pvadminuser@mail.bg"
             };
 
             AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin123");
@@ -128,8 +128,8 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             EmployeeUser = new IdentityUser()
             {
                 Id = "empu1234-em45-u123-r864-e3m2p1u87652",
-                UserName = "Svetla Peteva",
-                NormalizedUserName = "Svetla Peteva",
+                UserName = "spemployuser@mail.bg",
+                NormalizedUserName = "spemployuser@mail.bg",
                 Email = "spemployuser@mail.bg",
                 NormalizedEmail = "spemployuser@mail.bg"
             };

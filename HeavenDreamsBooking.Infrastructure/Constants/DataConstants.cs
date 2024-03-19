@@ -55,6 +55,11 @@ namespace HeavenDreamsBooking.Infrastructure.Constants
             public const int ProcessedMinLength = 2;
             public const int ProcessedMaxLength = 20;
         }
+        public class RolesConstants
+        {
+            public const int RoleNameMinLength = 3;
+            public const int RoleNameMaxLength = 256;
+        }
         public const string DateTimeFormat = "yyyy-MM-dd HH:mm";
         public const string TimeFormat = "HH:mm";
         public const string DateOnlyFormat = "yyyy-MM-dd";

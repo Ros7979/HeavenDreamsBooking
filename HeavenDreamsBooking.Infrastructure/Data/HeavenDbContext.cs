@@ -69,6 +69,10 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             builder.Entity<FlightDetail>()
                 .HasData(SOFBCN, SOFLCA, SOFATH);
 
+            SeedRole();
+            builder.Entity<IdentityRole>()
+                .HasData(seedRole);
+
             base.OnModelCreating(builder);
         }
 
@@ -87,6 +91,7 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         //Data for seeding Database
         private IdentityUser BusinessManagerUser { get; set; } = null!;
         private IdentityUser AdminUser { get; set; } = null!;
+        private IdentityRole seedRole { get; set; } = null!;
         private IdentityUser EmployeeUser { get; set; } = null!;
         private ProcessedBy BusinessManager { get; set; } = null!;
         private ProcessedBy Administrator { get; set; } = null!;
@@ -130,6 +135,15 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             };
 
             EmployeeUser.PasswordHash = hasher.HashPassword(EmployeeUser, "empl3user56");
+        }
+
+        private void SeedRole()
+        {
+            seedRole = new IdentityRole()
+            {
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
+            };
         }
         private void SeedProcessedBy()
         {

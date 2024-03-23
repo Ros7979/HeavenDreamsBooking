@@ -1,7 +1,7 @@
 ﻿using HeavenDreamsBooking.Core.Contracts;
 using HeavenDreamsBooking.Core.Services.Flight;
+using HeavenDreamsBooking.Core.Services.Reservation;
 using HeavenDreamsBooking.Infrastrucure.Data;
-using HeavenDreamsBooking.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IFlightService, FlightService>();
+            services.AddScoped<IReservationService, ReservationService>();
             return services;
         }
 

@@ -32,16 +32,18 @@
         {
             var flight = flights[i];
             <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
-                <img class="d-block w-30" style="height:200px"
-                     src="@flight.ImageUrl" alt="@flight.From">
-                <a class="btn btn-primary" asp-controller="House" asp-action="Details"
-                   asp-route-id="@flight.Id">От : @flight.From - @flight.Destination</a>
+                <img class="d-block w-100" style="height:230px" src="@flight.ImageUrl" alt="@flight.From">
+                @*  @if (User.Identity?.IsAuthenticated == true)
+            { *@
+
+                @*  } *@
+
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
-                        @* <a class="btn btn-primary" asp-controller="House" asp-action="Details"
-                           asp-route-id="@flight.Id">От : @flight.From - @flight.Destination</a> *@
+                        <a class="btn btn-primary" asp-controller="Reservation" asp-action="DestDetails" asp-route-id="@flight.Id">От : @flight.From - @flight.Destination</a>
                     </h5>
                 </div>
+                <br />
             </div>
         }
     </div>

@@ -23,20 +23,6 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-               .Entity<Reservation>()
-               .HasOne(r => r.ProcessedBy)
-               .WithMany()
-               .HasForeignKey(r => r.FlightDetailsId)
-               .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-             .Entity<FlightCanseled>()
-             .HasOne(fc => fc.ProcessedBy)
-             .WithMany()
-             .HasForeignKey(fc => fc.ProcessedById)
-             .OnDelete(DeleteBehavior.Restrict);
-
-            builder
                .Entity<DeparturedFlight>()
                .HasOne(df => df.PassengerDetail)
                .WithMany(pd => pd.DeparturedFlights)
@@ -219,5 +205,4 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         }
 
     }
-
 }

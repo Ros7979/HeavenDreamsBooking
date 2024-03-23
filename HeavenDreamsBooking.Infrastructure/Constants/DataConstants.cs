@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace HeavenDreamsBooking.Infrastructure.Constants
 {
     public class DataConstants
-    {    
-        public class FltDetailsConst 
+    {
+        public class FltDetailsConst
         {
             public const int FltNoMinLength = 4;
             public const int FltNoMaxLength = 20;
@@ -33,11 +33,16 @@ namespace HeavenDreamsBooking.Infrastructure.Constants
             public const int ResClassMinLength = 3;
             public const int ResClassMaxLength = 10;
 
+            public const int StatusMinLength = 3;
+            public const int StatusMaxLength = 50;
+
             public const int NameMinLength = 3;
             public const int NameMaxLength = 300;
 
             public const int EmailMinLength = 8;
             public const int EmailMaxLength = 256;
+
+            public const int DateOfJorneyMaxLength = 40;
         }
         public class FltStatusConst
         {
@@ -55,13 +60,16 @@ namespace HeavenDreamsBooking.Infrastructure.Constants
             public const int ProcessedMinLength = 2;
             public const int ProcessedMaxLength = 20;
         }
+
         public class RolesConstants
         {
             public const int RoleNameMinLength = 3;
             public const int RoleNameMaxLength = 256;
         }
-        public const string DateTimeFormat = "yyyy-MM-dd HH:mm";
+
+        public const string DateTimeForm = "yyyy-MM-dd HH:mm";
         public const string TimeFormat = "HH:mm";
         public const string DateOnlyFormat = "yyyy-MM-dd";
+        public const string StringLengthErrorMessage = "The field {0} must be between {2} and {1} characters long";
     }
 }

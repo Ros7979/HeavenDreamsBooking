@@ -1,0 +1,54 @@
+﻿@model List<ReservationIndexModel>
+@{
+    ViewData["Title"] = "All flights";
+    var flights = Model.ToList();
+}
+<h2 class="text-center">@ViewBag.Title from @flights[0].From to @flights[0].Destination</h2>
+
+<form>
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th data-toggle="tooltip" data-placement="right" title="Flight number">Flight number</th>
+                <th data-toggle="tooltip" data-placement="right" title="Take of place">From</th>
+                <th data-toggle="tooltip" data-placement="right" title="Landing place">Destination</th>
+                <th data-toggle="tooltip" data-placement="right" title="Date and time of the flight">Date of jorney</th>
+                <th data-toggle="tooltip" data-placement="right" title="Business seat price">Fare busines</th>
+                <th data-toggle="tooltip" data-placement="right" title="Economy seat price">Fare economy</th>
+                <th data-toggle="tooltip" data-placement="right" title="Booking request">Book</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var flightRes in Model)
+                {
+                    <tr>
+                        <td>@flightRes.FltNo</td>
+                        <td>@flightRes.From</td>
+                        <td>@flightRes.Destination</td>
+                        <td>@flightRes.DepTime.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@flightRes.FareBusines</td>
+                        <td>@flightRes.FareEconomy</td>
+                        <td>
+                            @* <div class="d-grid gap-1"> *@
+                            <a asp-controller="Reservation" asp-action="AddReservation" asp-route-id="@flightRes.Id" class="btn btn-primary">Book</a>
+                            @* </div> *@
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">
+                        <dialog>NO FLIGHTS FOR THIS DESTINATION</dialog>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

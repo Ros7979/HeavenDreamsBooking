@@ -177,7 +177,7 @@ namespace HeavenDreansBookingTest.Controllers
             for (int i = 0; i < modelList.Count; i++)
             {
                 var user = await userManager.FindByIdAsync(modelList[i].UserId);
-                IdentityResult result = null;
+                IdentityResult result = new IdentityResult();
                 if (modelList[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {
                     result = await userManager.AddToRoleAsync(user, role.Name);
@@ -200,41 +200,6 @@ namespace HeavenDreansBookingTest.Controllers
             }
             return RedirectToAction("EditRole", new { Id = roleId });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public async Task<IActionResult> AddUserToRole(string userName, string roleName)
-        //{
-        //    if (await roleManager.RoleExistsAsync(roleName))
-        //    {
-        //        var user = await userManager.FindByNameAsync(userName);
-        //        if (user != null)
-        //        {
-        //            if (await userManager.IsInRoleAsync(user, roleName) == false)
-        //            {
-        //                await userManager.AddToRoleAsync(user, roleName);
-        //            }
-        //        }
-        //    }
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-        //public IActionResult CheckRole(string roleName)
-        //{
-
-        //    return Ok(User.IsInRole(roleName));
-        //}
-
-     
+            
     }
 }

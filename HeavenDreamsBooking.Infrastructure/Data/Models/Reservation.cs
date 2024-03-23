@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static HeavenDreamsBooking.Infrastructure.Constants.DataConstants.ReservationsConst;
 namespace HeavenDreamsBooking.Infrastructure.Data.Models
@@ -7,17 +8,12 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        /// <summary>
-        /// Thicked number
-        /// </summary>       
-        [MaxLength(TicketNoMaxLength)]
-        public string TicketNo { get; set; } = string.Empty;
 
-        //[MaxLength(FltNoMaxLength)]
-        //public string FltNo { get; set; } = string.Empty;
+        [MaxLength(FltNoMaxLength)]
+        public string FltNo { get; set; } = string.Empty;
 
-        [Required]        
-        public int FlightDetailsId { get; set; } 
+        [Required]
+        public int FlightDetailsId { get; set; }
 
         [ForeignKey(nameof(FlightDetailsId))]
         public FlightDetail FlightDetail { get; set; } = null!;
@@ -45,24 +41,29 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         /// <summary>
         /// Email of passenger
         /// </summary>
+        [Required]
         [MaxLength(EmailMaxLength)]
+        [EmailAddress]
         public string? Email { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(5,2)")]
         public decimal Fare { get; set; }
-        [Required]
-        public int Status { get; set; }
+
+        [Required]        
+        public string Status { get; set; }= string.Empty;
 
         /// <summary>
         /// The user made the reservation
         /// </summary>
-        [Required]
-        public int ProcessedById { get; set; }
-        public ProcessedBy? ProcessedBy { get; set; }
+        //[Required]
+        //public int ProcessedById { get; set; }
+        //public ProcessedBy? ProcessedBy { get; set; }
 
-        //[ForeignKey(nameof(ReservationId))]
-        //public IdentityUser User { get; set; } = null!;
+        [Required]
+        public string? UserId { get; set; }
+        [Required]
+        public IdentityUser User { get; set; } = null!;
 
         /// <summary>
         /// Date of reservation
@@ -74,6 +75,6 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         /// Ticked confirmation
         /// </summary>
         public bool? TicketConfirmed { get; set; }
-        
+
     }
 }

@@ -47,11 +47,11 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         public string? Email { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(6,2)")]
         public decimal Fare { get; set; }
 
-        [Required]        
-        public string Status { get; set; }= string.Empty;
+        [Required]
+        public string Status { get; set; } = string.Empty;
 
         /// <summary>
         /// The user made the reservation

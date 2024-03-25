@@ -20,13 +20,12 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         /// Regular client discount
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(5,2)")]
-        public decimal Discount { get; set; }
+        public double Discount { get; set; }
 
         [Required]
         public int PassengerDetailId { get; set; }
         [ForeignKey(nameof(PassengerDetailId))]
-        public PassengerDetail PassengerDetail { get; set; }=null!;
+        public PassengerDetail PassengerDetail { get; set; } = null!;
 
     }
 }

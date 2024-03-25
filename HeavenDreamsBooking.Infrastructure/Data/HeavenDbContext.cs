@@ -26,7 +26,7 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
                .Entity<DeparturedFlight>()
                .HasOne(df => df.PassengerDetail)
                .WithMany(pd => pd.DeparturedFlights)
-               .HasForeignKey(f => f.PassengerDetailId)
+               .HasForeignKey(f => f.PassengerDetailsId)
                .OnDelete(DeleteBehavior.Restrict);
 
             builder
@@ -55,6 +55,10 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             builder.Entity<FlightDetail>()
                 .HasData(SOFBCN, SOFLCA, SOFATH);
 
+            SeedDiscunts();
+            builder.Entity<Discount>()
+                .HasData(discountSmall, discountBig);
+
             SeedRole();
             builder.Entity<IdentityRole>()
                 .HasData(seedRole);
@@ -72,6 +76,7 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         public DbSet<DeparturedFlight> DeparturedFlights { get; set; } = null!;
         public DbSet<PassengerDetail> PassengerDetails { get; set; } = null!;
         public DbSet<RegularFlier> RegularFliers { get; set; } = null!;
+        public DbSet<Discount> Discounts { get; set; } = null!;
 
 
         //Data for seeding Database
@@ -85,6 +90,8 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         private FlightDetail SOFBCN { get; set; } = null!;
         private FlightDetail SOFLCA { get; set; } = null!;
         private FlightDetail SOFATH { get; set; } = null!;
+        private Discount discountSmall { get; set; } = null!;
+        private Discount discountBig { get; set; } = null!;
 
         // Seeded Data
         private void SeedUsers()
@@ -201,6 +208,23 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
                 FareBusines = 500.00m,
                 FareEconomy = 314.00m,
                 LaunchDate = DateTime.Now
+            };
+        }
+        private void SeedDiscunts()
+        {
+            discountSmall = new Discount()
+            {
+                Id = 1,
+                FareLimit = 5500.00m,
+                TotalFlightsLimit = 10,
+                DiscountGiven = 8.0
+            };
+            discountBig = new Discount()
+            {
+                Id = 2,
+                FareLimit = 7500.00m,
+                TotalFlightsLimit = 15,
+                DiscountGiven = 14.0
             };
         }
 

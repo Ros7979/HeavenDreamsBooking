@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HeavenDreamsBooking.Infrastructure.Constants
+﻿namespace HeavenDreamsBooking.Infrastructure.Constants
 {
     public class DataConstants
     {
@@ -66,10 +60,17 @@ namespace HeavenDreamsBooking.Infrastructure.Constants
             public const int RoleNameMinLength = 3;
             public const int RoleNameMaxLength = 256;
         }
+        public class DiscuntConstants
+        {
+            public const double DiscountsMinLength = 0.0;
+            public const double DiscountsMaxLength = 100.00;
+            public const int TotalFlightsLimitMaxLength = 1000;
+        }
 
         public const string DateTimeForm = "yyyy-MM-dd HH:mm";
         public const string TimeFormat = "HH:mm";
         public const string DateOnlyFormat = "yyyy-MM-dd";
         public const string StringLengthErrorMessage = "The field {0} must be between {2} and {1} characters long";
+        public const string DecimalLenghtErrorMessage = "Value for {0} must be between {1} and {2}";
     }
 }

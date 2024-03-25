@@ -44,11 +44,18 @@
                         }
                         if (reservation.TicketConfirmed == true && reservation.DateOfJorney > DateTime.Now)
                         {
-                        <td>@reservation.FltNo</td>
-                        <td>@reservation.DateOfJorney</td>
-                        <td>@reservation.ClassOfRes</td>
-                        <td>@reservation.Fare</td>
-                        <td>@reservation.Status</td>
+                            <tr>
+                                <td>@reservation.FltNo</td>
+                                <td>@reservation.DateOfJorney</td>
+                                <td>@reservation.ClassOfRes</td>
+                                <td>@reservation.Fare</td>
+                                <td>@reservation.Status</td>
+                                <td>
+                                    <div class="d-grid gap-1">
+                                        <p></p>
+                                    </div>
+                                </td>
+                            </tr>
                         }
                     }
                 }

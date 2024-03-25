@@ -64,39 +64,51 @@ namespace HeavenDreamsBooking.Controllers
             decimal fare = 0.0m;
             string email = User.FindFirstValue(ClaimTypes.Email);
             var flight = await _context.FlightDetails.FindAsync(id);
-            if (flight == null)
+            var regular = _context.RegularFliers.FirstOrDefault(e => e.Email.Trim() == email.Trim());
+            var reservationExist = _context.Reservations.Where(r => r.FlightDetailsId == id);
+            if (reservationExist.Any())
             {
-                return BadRequest();
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            if (addReservation.ClassOfRes.ToString() == FlightClass.Economy.ToString())
-            {
-                fare = flight.FareEconomy;
+                TempData["msg"] = "You have already booked that flight";
+                return View();
             }
             else
             {
-                fare = flight.FareBusines;
+                if (flight == null)
+                {
+                    return BadRequest();
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                if (addReservation.ClassOfRes.ToString() == FlightClass.Economy.ToString())
+                {
+                    var minusDiscountEco = ((decimal)regular!.Discount / 100.0m) * flight.FareEconomy;
+                    fare = flight.FareEconomy - minusDiscountEco;
+                }
+                else
+                {
+                    var minusDiscountBis = ((decimal)regular!.Discount / 100.0m) * flight.FareBusines;
+                    fare = flight.FareEconomy - minusDiscountBis;
+                }
+                Reservation reservation = new Reservation()
+                {
+                    FltNo = flight.FltNo,
+                    DateOfJorney = flight.DepTime,
+                    Email = email,
+                    Name = addReservation.Name,
+                    ClassOfRes = addReservation.ClassOfRes.ToString(),
+                    Fare = fare,
+                    Status = "Reserved not confirmed",
+                    DateOfRes = DateTime.Now,
+                    TicketConfirmed = false,
+                    FlightDetailsId = flight.Id,
+                    UserId = GetUserId()
+                };
+                await _context.Reservations.AddAsync(reservation);
+                await _context.SaveChangesAsync();
+                return View();
             }
-            Reservation reservation = new Reservation()
-            {
-                FltNo = flight.FltNo,
-                DateOfJorney = flight.DepTime,
-                Email = email,
-                Name = addReservation.Name,
-                ClassOfRes = addReservation.ClassOfRes.ToString(),
-                Fare = fare,
-                Status = "Reserved not confirmed",
-                DateOfRes = DateTime.Now,
-                TicketConfirmed = false,
-                FlightDetailsId = flight.Id,
-                UserId = GetUserId()
-            };
-            await _context.Reservations.AddAsync(reservation);
-            await _context.SaveChangesAsync();
-            return View();
         }
 
         [HttpGet]
@@ -111,14 +123,75 @@ namespace HeavenDreamsBooking.Controllers
         public async Task<IActionResult> Confirmation(int id)
         {
             var reservationData = await _context.Reservations.FindAsync(id);
-            if (reservationData == null)
+            if (reservationData == null) { return BadRequest(); }
+            string? mail = reservationData.Email;
+            if (mail == null) { return BadRequest(); }
+            if (!_context.PassengerDetails.Any(r => r.Email.ToLower().Trim() == mail.ToLower().Trim()))
             {
-                return BadRequest();
-            }
+                PassengerDetail passenger = new PassengerDetail()
+                {
+                    Email = mail.Trim(),
+                    RegularFlier = new RegularFlier()
+                    {
+                        Email = mail.Trim()
+                    }
+                };
+                await _context.PassengerDetails.AddAsync(passenger);
+                await _context.SaveChangesAsync();
+            };
             reservationData.Status = "Confirmed";
             reservationData.TicketConfirmed = true;
             await _context.SaveChangesAsync();
+            var passengerId = _context.PassengerDetails.SingleOrDefault(r => r.Email.ToLower().Trim() == mail.ToLower().Trim());
+            Infrastructure.Data.Models.DeparturedFlight departuredFlight = new Infrastructure.Data.Models.DeparturedFlight()
+            {
+                FltNo = reservationData.FltNo,
+                FlightDetailsId = reservationData.FlightDetailsId,
+                DateOfJorney = reservationData.DateOfJorney,
+                ClassOfRes = reservationData.ClassOfRes,
+                Name = reservationData.Name,
+                Email = reservationData.Email,
+                Fare = reservationData.Fare,
+                Status = reservationData.Status,
+                UserId = reservationData.UserId,
+                DateOfRes = reservationData.DateOfRes,
+                TicketConfirmed = reservationData.TicketConfirmed,
+                PassengerDetailsId = passengerId!.Id
+            };
+            await _context.DeparturedFlights.AddAsync(departuredFlight);
+            await _context.SaveChangesAsync();
+            FillPassengerDetail(mail, departuredFlight.Fare);
             return RedirectToAction("Index", "Home");
+        }
+
+        private void FillPassengerDetail(string email, decimal fare)
+        {
+            var passengerId = _context.PassengerDetails.SingleOrDefault(r => r.Email.ToLower().Trim() == email.ToLower().Trim());
+            if (passengerId != null)
+            {
+                passengerId.TotalTimesFlown += 1;
+                passengerId.FareCollected += fare;
+                _context.SaveChangesAsync();
+                RegularFlierFill(passengerId.Id);
+            }
+        }
+
+        private void RegularFlierFill(int id)
+        {
+            var regularFlier = _context.RegularFliers.Find(id);
+            var passengerDetail = _context.PassengerDetails.Find(id);
+            var discountSetSmall = _context.Discounts.Find(1);
+            var discountSetBig = _context.Discounts.Find(2);
+            if (passengerDetail?.FareCollected > discountSetSmall?.FareLimit || passengerDetail?.TotalTimesFlown > discountSetSmall?.TotalFlightsLimit)
+            {
+                regularFlier!.Discount = discountSetSmall.DiscountGiven;
+                _context.SaveChangesAsync();
+            }
+            else if (passengerDetail?.FareCollected > discountSetBig?.FareLimit || passengerDetail?.TotalTimesFlown > discountSetBig?.TotalFlightsLimit)
+            {
+                regularFlier!.Discount = discountSetBig.DiscountGiven;
+                _context.SaveChangesAsync();
+            }
         }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -133,6 +206,6 @@ namespace HeavenDreamsBooking.Controllers
             return _context.FlightDetails.Find(id)!;
 
         }
-
     }
 }
+

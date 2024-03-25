@@ -11,8 +11,11 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         /// <summary>
         /// Thicked number
         /// </summary>        
-        [MaxLength(TicketNoMaxLength)]
-        public string TicketNo { get; set; } = string.Empty;         
+        [MaxLength(FltNoMaxLength)]
+        public string FltNo { get; set; } = string.Empty;
+
+        [Required]
+        public int FlightDetailsId { get; set; }
 
         /// <summary>
         /// Date of travel
@@ -41,12 +44,13 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         public string? Email { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(6,2)")]
         public decimal Fare { get; set; }
         [Required]
-        public int Status { get; set; }
+        public string Status { get; set; } = string.Empty;
 
-        public string ReservedBy { get; set; }= string.Empty;
+        [Required]
+        public string? UserId { get; set; }
 
         /// <summary>
         /// Date of reservation
@@ -60,9 +64,9 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         public bool? TicketConfirmed { get; set; }
 
         [Required]
-        public int PassengerDetailId { get; set; }
-        [Required]
-        [ForeignKey(nameof(PassengerDetailId))]
+        public int PassengerDetailsId { get; set; }
+
+        [ForeignKey(nameof(PassengerDetailsId))]
         public PassengerDetail PassengerDetail { get; set; } = null!;
 
     }

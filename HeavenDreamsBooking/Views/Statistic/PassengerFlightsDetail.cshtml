@@ -1,0 +1,60 @@
+﻿@model PassengerFlightsDetailModel
+@{
+    ViewBag.Title = "PASSENGER DETAILS";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Information ! </strong> @TempData["InfoMessage"]
+    </div>
+}
+<hr />
+<div>
+    @using (Html.BeginForm("PassengerFlightsDetail", "Statistic", FormMethod.Get))
+    {
+        <table>
+            <tr>
+
+                <td>
+                    @Html.TextBox("searchValue", null, new { Class = "form-control", placeholder = "Enter valid Email address" })
+                </td>
+                <td>
+                    <input type="submit" value="Search" class="btn btn-success" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<form>
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th data-toggle="tooltip" data-placement="right" title="Fare Collected">Fare Collected</th>
+                <th data-toggle="tooltip" data-placement="right" title=" Total Times Flown">Total Times Flown</th>
+                <th data-toggle="tooltip" data-placement="right" title="Discount">Flier Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                <tr>
+                    <td>@Model.FareCollected</td>
+                    <td>@Model.TotalTimesFlown</td>
+                    <td>@Model.FlierDiscount</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">
+                        <dialog>NO SEARCH MADE YET</dialog>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

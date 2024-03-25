@@ -10,5 +10,6 @@ namespace HeavenDreamsBooking.Core.Contracts
         Task<List<FlightDetailsModel>> AllFlightsDetail();
         Task EditAsync(int id, FlightFormModel _flight);
         Task DeleteAsync(int id);
+        Task DiscountSet(DiscountSetModel model);
     }
 }

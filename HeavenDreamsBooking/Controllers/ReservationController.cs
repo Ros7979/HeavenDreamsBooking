@@ -187,11 +187,11 @@ namespace HeavenDreamsBooking.Controllers
                 regularFlier!.Discount = discountSetSmall.DiscountGiven;
                 _context.SaveChangesAsync();
             }
-            else if (passengerDetail?.FareCollected > discountSetBig?.FareLimit || passengerDetail?.TotalTimesFlown > discountSetBig?.TotalFlightsLimit)
-            {
-                regularFlier!.Discount = discountSetBig.DiscountGiven;
-                _context.SaveChangesAsync();
-            }
+            //else if (passengerDetail?.FareCollected > discountSetBig?.FareLimit || passengerDetail?.TotalTimesFlown > discountSetBig?.TotalFlightsLimit)
+            //{
+            //    regularFlier!.Discount = discountSetBig.DiscountGiven;
+            //    _context.SaveChangesAsync();
+            //}
         }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);

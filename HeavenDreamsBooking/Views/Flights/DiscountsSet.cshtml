@@ -1,0 +1,48 @@
+﻿@model DiscountSetModel
+@{
+    ViewBag.Title = "Discount set";
+}
+<h1 class="text-center">@ViewBag.Title</h1>
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="DiscountsSet" method="post">
+            <div class="mb-3">
+                <div class="input-group">
+                    <label asp-for="@Model.TotalFlights" class="form-label-add-edit">Customer who have flown more than:</label>&nbsp;&nbsp;
+                    <input asp-for="@Model.TotalFlights" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">times</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.TotalFlights" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                    <label asp-for="@Model.FareTotal" class="form-label-add-edit">Customer who have payd more than:</label>&nbsp;&nbsp;&nbsp;
+                    <input asp-for="@Model.FareTotal" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">levs</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.FareTotal" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                    <label asp-for="@Model.DiscountGiven" class="form-label-add-edit">Get discount of:</label><pre>                    </pre>&nbsp;&nbsp;
+                    <input asp-for="@Model.DiscountGiven" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.DiscountGiven" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary mb-2 w-100 p-3 fw-bold" type="submit" value="Low discount set" />                
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

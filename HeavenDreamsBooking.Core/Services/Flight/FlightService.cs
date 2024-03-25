@@ -60,7 +60,6 @@ namespace HeavenDreamsBooking.Core.Services.Flight
                 }
                 ).ToListAsync();
         }
-
         public async Task EditAsync(int id, FlightFormModel _flight)
         {
             var flight = await _context.FlightDetails.FindAsync(id);
@@ -89,6 +88,17 @@ namespace HeavenDreamsBooking.Core.Services.Flight
                 _context.FlightDetails.Remove(flight);
             }
             await _context.SaveChangesAsync();
+        }
+        public async Task DiscountSet(DiscountSetModel discounts)
+        {
+            var discount = await _context.Discounts.FindAsync(1);
+            if (discount != null)
+            {
+                discount.FareLimit = discounts.FareTotal;
+                discount.TotalFlightsLimit = discounts.TotalFlights;
+                discount.DiscountGiven = discounts.DiscountGiven;
+                await _context.SaveChangesAsync();
+            };
         }
     }
 }

@@ -166,5 +166,30 @@ namespace HeavenDreansBookingTest.Controllers
             await _flightService.DeleteAsync(_flight.Id);
             return View("Details");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DiscountsSet()
+        {
+            var lowDiscount = await _context.Discounts.FindAsync(1);
+            if (lowDiscount == null)
+            {
+                return BadRequest();
+            }
+            DiscountSetModel discountSet = new DiscountSetModel()
+            {
+                Id = lowDiscount.Id,
+                FareTotal = lowDiscount.FareLimit,
+                TotalFlights = lowDiscount.TotalFlightsLimit,
+                DiscountGiven = lowDiscount.DiscountGiven
+            };
+            return View(discountSet);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DiscountsSet(DiscountSetModel discounts)
+        {
+            if (!ModelState.IsValid) { return BadRequest(); }
+            await _flightService.DiscountSet(discounts);
+            return View();
+        }
     }
 }

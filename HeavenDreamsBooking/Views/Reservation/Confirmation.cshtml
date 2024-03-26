@@ -3,7 +3,6 @@
     ViewBag.Title = "All your flights";
 }
 <h1 class="text-center">@ViewBag.Title</h1>
-
 @if (Model != null && Model.Any())
 {
     <h3 class="text-center">Currently reservations</h3>
@@ -16,7 +15,7 @@
                     <th data-toggle="tooltip" data-placement="right" title="Class of reservation (economy/business)">Class of reservation</th>
                     <th data-toggle="tooltip" data-placement="right" title="Fare">Fare</th>
                     <th data-toggle="tooltip" data-placement="right" title="Reservation status">Status</th>
-                    <th data-toggle="tooltip" data-placement="right" title="Confirm your reservation">Confirmation</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Confirm or cancel your reservation">Confirmation</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,13 +33,10 @@
                                 <td>@reservation.Status</td>
                                 <td>
                                     <div class="d-grid gap-1">
-                                      @*   <a asp-controller="Reservation" asp-action="Confirmation" asp-route-id="@reservation.Id" class="btn btn-primary" role="button">Confirm</a> *@
-                                      @*   <button class="btn btn-primary" type="submit" asp-route-id="reservation" value="Confirmation" style="width:auto">Confirm</button> *@
                                         <button class="btn btn-primary" type="submit" asp-route-id="@reservation.Id" value="Confirmation" style="width:auto">Confirm</button>
                                     </div>
                                 </td>
                             </tr>
-
                         }
                         if (reservation.TicketConfirmed == true && reservation.DateOfJorney > DateTime.Now)
                         {
@@ -62,6 +58,42 @@
             </tbody>
         </table>
     </form>
+    <br />
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th data-toggle="tooltip" data-placement="right" title="Flight number">Flight number</th>
+                <th data-toggle="tooltip" data-placement="right" title="Date of Jorney">Date of Jorney</th>
+                <th data-toggle="tooltip" data-placement="right" title="Class of reservation (economy/business)">Class of reservation</th>
+                <th data-toggle="tooltip" data-placement="right" title="Fare">Fare</th>
+                <th data-toggle="tooltip" data-placement="right" title="Reservation status">Status</th>
+                <th data-toggle="tooltip" data-placement="right" title="Cancel your reservation">Cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (Reservation reservation in Model)
+                {
+                    if (reservation.TicketConfirmed == false)
+                    {
+                        <tr>
+                            <td>@reservation.FltNo</td>
+                            <td>@reservation.DateOfJorney</td>
+                            <td>@reservation.ClassOfRes</td>
+                            <td>@reservation.Fare</td>
+                            <td>@reservation.Status</td>
+                            <td>
+                                <form class="mt-2" asp-controller="Reservation" asp-action="Canceling" asp-route-id="@reservation.Id" method="post">
+                                    <input class="btn btn-primary" type="submit" value="Cancel" style="width:stretch" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
     <br />
     <h3 class="text-center">Old reservations</h3>
     <form>
@@ -89,7 +121,6 @@
                                 <td>@reservation.Fare</td>
                                 <td>@reservation.Status</td>
                             </tr>
-
                         }
                     }
                 }
@@ -104,4 +135,7 @@ else
             You have no flights booked yet!
         </div>
     </div>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -1,0 +1,43 @@
+﻿@model Reservation
+@{
+    ViewBag.Title = "You can cancel your reservation";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<form asp-action="Canceling">
+    <div class="row">       
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="FltNo" class="control-label"></label>
+                <input asp-for="FltNo" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Fare" class="control-label"></label>
+                <input asp-for="Fare" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfJorney" class="control-label"></label>
+                <input asp-for="DateOfJorney" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassOfRes" class="control-label"></label>
+                <input asp-for="ClassOfRes" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Canceling" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+

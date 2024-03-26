@@ -164,6 +164,35 @@ namespace HeavenDreamsBooking.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Canceling(int id)
+        {
+            var reserva = await _context.Reservations.FindAsync(id);
+            if (reserva == null) { return BadRequest(); }
+            return View(reserva);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Canceling(int id, Reservation reserv)
+        {
+            var reservationData = await _context.Reservations.FindAsync(id);
+            if (reservationData == null) { return BadRequest(); }
+            var refund = (90.0m / 100.0m) * reservationData.Fare;
+            FlightCanseled flightCanseled = new FlightCanseled()
+            {
+                FltNo = reservationData.FltNo,
+                DateOfJorney = reservationData.DateOfJorney,
+                Email = reservationData.Email,
+                Name = reservationData.Name,
+                UserId = reservationData.UserId,
+                CanselationDate = DateTime.Now,
+                Refund = (float)refund
+            };
+            await _context.FlightsCanseled.AddAsync(flightCanseled);
+            _context.Reservations.Remove(reservationData);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         private void FillPassengerDetail(string email, decimal fare)
         {
             var passengerId = _context.PassengerDetails.SingleOrDefault(r => r.Email.ToLower().Trim() == email.ToLower().Trim());

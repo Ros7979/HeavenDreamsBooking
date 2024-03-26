@@ -86,7 +86,16 @@ namespace HeavenDreansBookingTest.Controllers
                 SeatsEconomy = flightFormModel.SeatsEconomy,
                 FareBusines = flightFormModel.FareBusiness,
                 FareEconomy = flightFormModel.FareEconomy,
-                LaunchDate = DateTime.Now
+                LaunchDate = DateTime.Now,
+                FlightStatus = new FlightStatus()
+                {
+                    FltNo = flightFormModel.FltNo.Trim(),
+                    DateOfJorney = flightFormModel.DepTime,
+                    StatusEconomy = flightFormModel.SeatsEconomy,
+                    StatusBusiness = flightFormModel.SeatsBusiness,
+                    WaitListedEconomy = 0,
+                    WaitListedBusiness = 0
+                }
             };
             await _context.FlightDetails.AddAsync(flightAdd);
             await _context.SaveChangesAsync();

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static HeavenDreamsBooking.Infrastructure.Constants.DataConstants.FltStatusConst;
 
 namespace HeavenDreamsBooking.Infrastructure.Data.Models
@@ -13,19 +8,29 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
     {
         [Key]
         public int Id { get; set; }
-                
-        public int FlightDetailId { get; set; }
 
-        [ForeignKey(nameof(FlightDetailId))]
+        [MaxLength(FltNoMaxLength)]
+        public string FltNo { get; set; } = string.Empty;
+
+        [Required]
+        public int FlightDetailsId { get; set; }
+
+        [ForeignKey(nameof(FlightDetailsId))]
         public FlightDetail? FlightDetail { get; set; }
 
         [Required]
-        public DateTime StatusDate { get; set; }
+        public DateTime DateOfJorney { get; set; }
+
         [Required]
-        [MaxLength(StatusMaxLength)]
-        public string StatusClass { get; set; }= null!;
+        public int StatusEconomy { get; set; }
+
+        public int WaitListedEconomy { get; set; }
+
         [Required]
-        public int Status { get; set; }
+        public int StatusBusiness { get; set; }
+
+
+        public int WaitListedBusiness { get; set; }
 
     }
 }

@@ -31,7 +31,7 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
 
         [Required]
         [Comment("Flight image url")]
-        public string ImageUrl { get; set; }= null!;     
+        public string ImageUrl { get; set; } = null!;
 
         /// <summary>
         /// Departure time
@@ -50,16 +50,16 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         public string AircraftType { get; set; } = null!;
         [Required]
         public int SeatsBusines { get; set; }
-     
+
         [Required]
         public int SeatsEconomy { get; set; }
 
         [Required]
-        [Column(TypeName ="decimal(5,2)")]
+        [Column(TypeName = "decimal(6,2)")]
         public decimal FareBusines { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(6,2)")]
         public decimal FareEconomy { get; set; }
 
         /// <summary>
@@ -68,6 +68,7 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         [Required]
         public DateTime LaunchDate { get; set; }
         public IEnumerable<Reservation> Reservations { get; set; } = new List<Reservation>();
-       // public IEnumerable<FlightStatus> FlightStatuses { get; set; } = new List<FlightStatus>();
+        public FlightStatus? FlightStatus { get; set; }
+
     }
 }

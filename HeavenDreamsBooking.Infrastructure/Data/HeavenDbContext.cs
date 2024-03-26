@@ -35,13 +35,13 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
                .WithOne(pd => pd.PassengerDetail)
                .HasForeignKey<RegularFlier>(r => r.PassengerDetailId)
                .IsRequired();
-            //In case of use of Status table
-            //builder
-            //   .Entity<FlightStatus>()
-            //   .HasOne(r => r.FlightDetail)
-            //   .WithMany(fl => fl.FlightStatuses)
-            //   .HasForeignKey(r => r.FlightDetailId)
-            //   .OnDelete(DeleteBehavior.Restrict);
+            
+            builder
+              .Entity<FlightDetail>()
+              .HasOne(r => r.FlightStatus)
+              .WithOne(fl => fl.FlightDetail)
+              .HasForeignKey<FlightStatus>(r => r.FlightDetailsId)
+              .IsRequired();
 
             SeedUsers();
             builder.Entity<IdentityUser>()
@@ -70,7 +70,7 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         public DbSet<Reservation> Reservations { get; set; } = null!;
         public DbSet<ProcessedBy> ProcessedBies { get; set; } = null!;
         public DbSet<FlightCanseled> FlightsCanseled { get; set; } = null!;
-        //public DbSet<FlightStatus> FlightStatus { get; set; } = null!;
+        public DbSet<FlightStatus> FlightStatus { get; set; } = null!;
 
         //Second Database For Bussines managers
         public DbSet<DeparturedFlight> DeparturedFlights { get; set; } = null!;

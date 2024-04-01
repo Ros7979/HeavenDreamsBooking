@@ -13,9 +13,9 @@ namespace HeavenDreamsBooking.Infrastructure.Data.Models
         public string FltNo { get; set; } = string.Empty;
 
         [Required]
-        public int FlightDetailsId { get; set; }
+        public int FlightDetailId { get; set; }
 
-        [ForeignKey(nameof(FlightDetailsId))]
+        [ForeignKey(nameof(FlightDetailId))]
         public FlightDetail? FlightDetail { get; set; }
 
         [Required]

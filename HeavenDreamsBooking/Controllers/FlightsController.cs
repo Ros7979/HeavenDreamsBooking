@@ -2,12 +2,11 @@
 using HeavenDreamsBooking.Core.Models.Flight;
 using HeavenDreamsBooking.Infrastructure.Data.Models;
 using HeavenDreamsBooking.Infrastrucure.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeavenDreansBookingTest.Controllers
 {
-   // [Authorize(Roles = "BusinessManager")]
+    // [Authorize(Roles = "BusinessManager")]
     public class FlightsController : Controller
     {
         private readonly IFlightService _flightService;
@@ -19,7 +18,6 @@ namespace HeavenDreansBookingTest.Controllers
         }
         public async Task<IActionResult> Index(string searchValue, DateTime deptime, DateTime arrtime)
         {
-
             var countFlights = await _flightService.AllFlightsList();
             var searchFlight = countFlights.Where(cf => cf.From.ToLower().Contains(searchValue.ToLower()));
             return View(countFlights);
@@ -199,6 +197,75 @@ namespace HeavenDreansBookingTest.Controllers
             if (!ModelState.IsValid) { return BadRequest(); }
             await _flightService.DiscountSet(discounts);
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchBy(string from, string to, DateTime dateOftravel)
+        {
+            var flightsDetails = await _flightService.AllFlightsDetail();
+            if (flightsDetails.Count == 0)
+            {
+                TempData["InfoMessage"] = "Currently flights not available";
+                return View();
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(from))
+                {
+                    TempData["InfoMessage"] = "Please enter a From city.";
+                    return View();
+
+                }
+                if (string.IsNullOrEmpty(to))
+                {
+                    TempData["InfoMessage"] = "Please enter a To city.";
+                    return View();
+
+                }
+                if (dateOftravel == default)
+                {
+                    TempData["InfoMessage"] = "Please enter a Depart date.";
+                    return View();
+                }
+
+                if (!string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to) && dateOftravel != default)
+                {
+                    var searchValueFlightFrom = flightsDetails.FirstOrDefault(fd => fd.From.ToLower().Contains(from.ToLower()) && fd.Destination.ToLower().Contains(to.ToLower()) && fd.DepTime.ToString("dd/MM/yyyy") == dateOftravel.ToString("dd/MM/yyyy"));
+                    if (searchValueFlightFrom != null)
+                    {
+                        var flightStatus = _context.FlightStatus.FirstOrDefault(fs => fs.FlightDetailId == searchValueFlightFrom.Id);
+                        FlightModelFlightStatus flightModelFlightStatus = new FlightModelFlightStatus()
+                        {
+                            Id = searchValueFlightFrom.Id,
+                            FltNo = searchValueFlightFrom.FltNo,
+                            From = searchValueFlightFrom.From,
+                            Destination = searchValueFlightFrom.Destination,
+                            ImageUrl = searchValueFlightFrom.ImageUrl,
+                            DepTime = searchValueFlightFrom.DepTime,
+                            ArrTime = searchValueFlightFrom.ArrTime,
+                            AircraftType = searchValueFlightFrom.AircraftType,
+                            SeatsBusiness = searchValueFlightFrom.SeatsBusiness,
+                            SeatsEconomy = searchValueFlightFrom.SeatsEconomy,
+                            FareBusiness = searchValueFlightFrom.FareBusiness,
+                            FareEconomy = searchValueFlightFrom.FareEconomy,
+                            LaunchDate = searchValueFlightFrom.LaunchDate,
+                            FlightStatus = flightStatus
+                        };
+                        return View(flightModelFlightStatus);
+                    }
+                    else
+                    {
+                        TempData["InfoMessage"] = "There is no flight with this data.";
+                        return View();
+                    }
+                }
+                else
+                {
+                    TempData["InfoMessage"] = "There is no flight with this data.";
+                    flightsDetails = null;
+                    return View(flightsDetails);
+                }
+            }
         }
     }
 }

@@ -107,6 +107,7 @@ namespace HeavenDreamsBooking.Controllers
                 };
                 await _context.Reservations.AddAsync(reservation);
                 await _context.SaveChangesAsync();
+                AddChangeFlightStatus(flight.Id, addReservation.ClassOfRes.ToString());
                 return View();
             }
         }
@@ -190,6 +191,7 @@ namespace HeavenDreamsBooking.Controllers
             await _context.FlightsCanseled.AddAsync(flightCanseled);
             _context.Reservations.Remove(reservationData);
             await _context.SaveChangesAsync();
+            CancelChangeFlightStatus(id, reservationData.ClassOfRes);
             return RedirectToAction("Index", "Home");
         }
 
@@ -233,7 +235,65 @@ namespace HeavenDreamsBooking.Controllers
         private FlightDetail GetFlight(int id)
         {
             return _context.FlightDetails.Find(id)!;
+        }
 
+        private void AddChangeFlightStatus(int id, string status)
+        {
+            var flightStatusRead = _context.FlightStatus.Find(id);
+            if (flightStatusRead == null) { }
+            if (status.ToLower().Trim() == "economy")
+            {
+                if (flightStatusRead.StatusEconomy <= 0)
+                {
+                    flightStatusRead.WaitListedEconomy += 1;
+                    _context.SaveChanges();
+                }
+                else if (flightStatusRead.StatusEconomy > 0)
+                {
+                    flightStatusRead.StatusEconomy -= 1;
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                if (flightStatusRead.StatusBusiness <= 0)
+                {
+                    flightStatusRead.WaitListedBusiness += 1;
+                    _context.SaveChanges();
+                }
+                else if (flightStatusRead.StatusBusiness > 0)
+                {
+                    flightStatusRead.StatusBusiness -= 1;
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        private void CancelChangeFlightStatus(int id, string status)
+        {
+            var flightStatusRead = _context.FlightStatus.Find(id);
+            if (flightStatusRead == null) { }
+            if (status.ToLower().Trim() == "economy")
+            {
+                flightStatusRead.StatusEconomy += 1;
+                _context.SaveChanges();
+                if (flightStatusRead.WaitListedEconomy > 0)
+                {
+                    flightStatusRead.WaitListedEconomy -= 1;
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                flightStatusRead.StatusBusiness += 1;
+                _context.SaveChanges();
+                if (flightStatusRead.StatusBusiness > 0)
+                {
+                    flightStatusRead.WaitListedBusiness -= 1;
+                    _context.SaveChanges();
+                }
+
+            }
         }
     }
 }

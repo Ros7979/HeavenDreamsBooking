@@ -4,6 +4,7 @@ using HeavenDreamsBooking.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeavenDreamsBooking.Infrastructure.Migrations
 {
     [DbContext(typeof(HeavenDbContext))]
-    partial class HeavenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240327211203_WithOutProcessedBy")]
+    partial class WithOutProcessedBy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,6 +112,13 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             DiscountGiven = 8.0,
                             FareLimit = 5500.00m,
                             TotalFlightsLimit = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DiscountGiven = 14.0,
+                            FareLimit = 7500.00m,
+                            TotalFlightsLimit = 15
                         });
                 });
 
@@ -227,9 +236,9 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "SOF-BCN",
                             From = "София",
                             ImageUrl = "https://wallpaperaccess.com/full/1322174.jpg",
-                            LaunchDate = new DateTime(2024, 4, 1, 22, 34, 51, 360, DateTimeKind.Local).AddTicks(114),
-                            SeatsBusines = 3,
-                            SeatsEconomy = 5
+                            LaunchDate = new DateTime(2024, 3, 27, 23, 12, 2, 595, DateTimeKind.Local).AddTicks(6040),
+                            SeatsBusines = 30,
+                            SeatsEconomy = 50
                         },
                         new
                         {
@@ -243,15 +252,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "SOF-LCA",
                             From = "София",
                             ImageUrl = "https://www.goatsontheroad.com/wp-content/uploads/2022/11/Malindi-Beach-in-Limassol.jpeg",
-                            LaunchDate = new DateTime(2024, 4, 1, 22, 34, 51, 360, DateTimeKind.Local).AddTicks(147),
-                            SeatsBusines = 4,
-                            SeatsEconomy = 4
+                            LaunchDate = new DateTime(2024, 3, 27, 23, 12, 2, 595, DateTimeKind.Local).AddTicks(6095),
+                            SeatsBusines = 24,
+                            SeatsEconomy = 40
                         },
                         new
                         {
                             Id = 3,
-                            AircraftType = "Boeing 777",
-                            ArrTime = new DateTime(2024, 10, 10, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            AircraftType = "Boeing 747",
+                            ArrTime = new DateTime(2024, 10, 10, 23, 30, 0, 0, DateTimeKind.Unspecified),
                             DepTime = new DateTime(2024, 10, 10, 6, 30, 0, 0, DateTimeKind.Unspecified),
                             Destination = "Атина",
                             FareBusines = 500.00m,
@@ -259,25 +268,9 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "SOF-ATH",
                             From = "София",
                             ImageUrl = "https://th.bing.com/th/id/OIP.gtnO8Z0v_QVMykrG4JUJygHaE8?rs=1&pid=ImgDetMain",
-                            LaunchDate = new DateTime(2024, 4, 1, 22, 34, 51, 360, DateTimeKind.Local).AddTicks(150),
-                            SeatsBusines = 8,
-                            SeatsEconomy = 10
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AircraftType = "Boeing 777",
-                            ArrTime = new DateTime(2024, 10, 11, 11, 30, 0, 0, DateTimeKind.Unspecified),
-                            DepTime = new DateTime(2024, 10, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
-                            Destination = "София",
-                            FareBusines = 500.00m,
-                            FareEconomy = 314.00m,
-                            FltNo = "ATH-SOF",
-                            From = "Атина",
-                            ImageUrl = "https://th.bing.com/th/id/OIP.gtnO8Z0v_QVMykrG4JUJygHaE8?rs=1&pid=ImgDetMain",
-                            LaunchDate = new DateTime(2024, 4, 1, 22, 34, 51, 360, DateTimeKind.Local).AddTicks(156),
-                            SeatsBusines = 8,
-                            SeatsEconomy = 10
+                            LaunchDate = new DateTime(2024, 3, 27, 23, 12, 2, 595, DateTimeKind.Local).AddTicks(6098),
+                            SeatsBusines = 4,
+                            SeatsEconomy = 80
                         });
                 });
 
@@ -292,7 +285,7 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                     b.Property<DateTime>("DateOfJorney")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FlightDetailId")
+                    b.Property<int>("FlightDetailsId")
                         .HasColumnType("int");
 
                     b.Property<string>("FltNo")
@@ -314,56 +307,10 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightDetailId")
+                    b.HasIndex("FlightDetailsId")
                         .IsUnique();
 
                     b.ToTable("FlightStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateOfJorney = new DateTime(2024, 8, 23, 14, 35, 0, 0, DateTimeKind.Unspecified),
-                            FlightDetailId = 1,
-                            FltNo = "SOF-BCN",
-                            StatusBusiness = 5,
-                            StatusEconomy = 3,
-                            WaitListedBusiness = 0,
-                            WaitListedEconomy = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateOfJorney = new DateTime(2024, 6, 14, 11, 30, 0, 0, DateTimeKind.Unspecified),
-                            FlightDetailId = 2,
-                            FltNo = "SOF-LCA",
-                            StatusBusiness = 4,
-                            StatusEconomy = 4,
-                            WaitListedBusiness = 0,
-                            WaitListedEconomy = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateOfJorney = new DateTime(2024, 10, 10, 6, 30, 0, 0, DateTimeKind.Unspecified),
-                            FlightDetailId = 3,
-                            FltNo = "SOF-ATH",
-                            StatusBusiness = 10,
-                            StatusEconomy = 8,
-                            WaitListedBusiness = 0,
-                            WaitListedEconomy = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DateOfJorney = new DateTime(2024, 10, 10, 6, 30, 0, 0, DateTimeKind.Unspecified),
-                            FlightDetailId = 4,
-                            FltNo = "ATH-SOF",
-                            StatusBusiness = 10,
-                            StatusEconomy = 8,
-                            WaitListedBusiness = 0,
-                            WaitListedEconomy = 0
-                        });
                 });
 
             modelBuilder.Entity("HeavenDreamsBooking.Infrastructure.Data.Models.PassengerDetail", b =>
@@ -511,8 +458,8 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1a4b4694-c3d6-4085-8202-56758d2f2925",
-                            ConcurrencyStamp = "7662a2b8-83d2-478d-baaa-4753d3632038",
+                            Id = "69c8ebe5-9fae-4009-8fa5-4a78c4ab2b35",
+                            ConcurrencyStamp = "ad102867-d405-48c7-80cc-e2d3560a1fc6",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -612,15 +559,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "bsm12345-b345-s678-m123-b1s2m3456789",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bcccb97b-eb69-4989-847d-5a8592e9ae69",
+                            ConcurrencyStamp = "314fcf5c-55f5-4d36-8bbb-c561f6168f3e",
                             Email = "isbusinessmanager@mail.bg",
-                            EmailConfirmed = true,
+                            EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "isbusinessmanager@mail.bg",
                             NormalizedUserName = "isbusinessmanager@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAELJXXaYT4FsFhPo7QYvrFuoxZaIG8WrsKfxUeu8vIr1kz09W2Dd6M7G8kVqsrGkc8g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF1qGQ2ObCYbFEgZxtYPcLLNhD38tWl4ZMbtMKyyYySkjadVsZtdt6wncHzOGH0cyw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "73ba1ecc-3e1c-4430-902c-260f970ec985",
+                            SecurityStamp = "9ded2444-1f35-4571-95d8-dfc77987b162",
                             TwoFactorEnabled = false,
                             UserName = "isbusinessmanager@mail.bg"
                         },
@@ -628,15 +575,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "adm12345-a345-d678-m321-a3d2m1987654",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07316c39-84f2-4eed-b582-84ad5edee5a0",
+                            ConcurrencyStamp = "1cf2decc-04e3-4c59-9d8b-f7f834868e9d",
                             Email = "pvadminuser@mail.bg",
-                            EmailConfirmed = true,
+                            EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "pvadminuser@mail.bg",
                             NormalizedUserName = "pvadminuser@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKscI/zbUEoIiOvCveDxmslghC+vnHS90VKCrB+FLYXkKrzv9kmxv1FXaTgxrLrUew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFztty7noF4w6bB85tMu7MawPGFm5pitnFGDj3rOvtRRvgDOmr93lQK9FuEHE4Npnw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9f63830e-7536-4683-980b-5a0f5c13592c",
+                            SecurityStamp = "50dc4d66-8f32-498d-bae7-7cc35c8b6817",
                             TwoFactorEnabled = false,
                             UserName = "pvadminuser@mail.bg"
                         },
@@ -644,15 +591,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "empu1234-em45-u123-r864-e3m2p1u87652",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5a13d797-561e-4e5f-9d8a-9b0e164ae36e",
+                            ConcurrencyStamp = "680d0129-a10d-4cf2-9339-5d32203aebbd",
                             Email = "spemployuser@mail.bg",
-                            EmailConfirmed = true,
+                            EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "spemployuser@mail.bg",
                             NormalizedUserName = "spemployuser@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPYEU33pOwD6FVbUaV25XQOdZbD4eZxJ0BasKzbEp7NgCxXORbeKejMCYPT2GqeqKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC/38m2BssRvIc2tROcDwf0MK6egpqOJA6XVmjH4SKkYJQWL4Q7FglAMMb1rGM3eQA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "01df978a-a82f-4fd9-916d-7114f214278f",
+                            SecurityStamp = "eacdebf6-c00c-45b6-87eb-833c286105f8",
                             TwoFactorEnabled = false,
                             UserName = "spemployuser@mail.bg"
                         });
@@ -769,7 +716,7 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                 {
                     b.HasOne("HeavenDreamsBooking.Infrastructure.Data.Models.FlightDetail", "FlightDetail")
                         .WithOne("FlightStatus")
-                        .HasForeignKey("HeavenDreamsBooking.Infrastructure.Data.Models.FlightStatus", "FlightDetailId")
+                        .HasForeignKey("HeavenDreamsBooking.Infrastructure.Data.Models.FlightStatus", "FlightDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

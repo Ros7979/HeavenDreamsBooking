@@ -1,6 +1,7 @@
 using HeavenDreamsBooking.Infrastrucure.Data;
 using HouseRentingSystem.ModelBinders;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews(options =>
 {
     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 builder.Services.AddControllersWithViews();

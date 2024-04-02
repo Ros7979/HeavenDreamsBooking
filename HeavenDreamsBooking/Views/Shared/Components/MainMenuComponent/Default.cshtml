@@ -4,32 +4,33 @@
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="Add">Add</a>
-    </li>
-    @*    @if(signInManager.IsSignedIn(User) && User.IsInRole("BusinessManager"))
-    { *@
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="Details">DetailsFlight</a>
-    </li>
-    @*  } *@
-    @*    @if(signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
-    { *@
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Admini" asp-action="ListRoles">Add Role</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Confirmation">Confirm</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Statistic" asp-action="PassengerFlightsDetail">Passenger</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="DiscountsSet">DiscountsSet</a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="SearchBy">Search</a>
     </li>
+    @*  @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+    { *@
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Admini" asp-action="ListRoles">AdminControl</a>
+    </li>
+    @* } *@
+    @*    @if(signInManager.IsSignedIn(User) && User.IsInRole("BusinessManager"))
+    { *@
+    <li>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Manager
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="/Flights/Details">FlightsDetails</a></li>
+                <li><a class="dropdown-item" href="/Flights/Add">AddFlight</a></li>
+                <li><a class="dropdown-item" href="/Flights/DiscountsSet">Discount</a></li>
+                <li><a class="dropdown-item" href="/Statistic/PassengerFlightsDetail">PassengerDetail</a></li>
+            </ul>
+        </div>
+    </li>
     @*  } *@
-
-
 </ul>
+
+

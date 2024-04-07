@@ -1,0 +1,86 @@
+﻿@model AddReservationBook
+@{
+    ViewBag.Title = "Book your flight";
+}
+<h1 class="text-center">@ViewBag.Title</h1>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Information ! </strong> @TempData["InfoMessage"]
+    </div>
+}
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="AddReservation" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.FltNo">Flight Number</label>
+                <input asp-for="@Model.FltNo" disabled class="form-control" />
+                <span asp-validation-for="@Model.FltNo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.DateOfJorney" class="form-label-add-edit">Date and time of journey</label>
+                <input asp-for="@Model.DateOfJorney" disabled class="form-control" />
+                <span asp-validation-for="@Model.DateOfJorney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassOfRes" class="form-label-add-edit">Class of reservation</label>
+                <select asp-for="@Model.ClassOfRes" class="form-control" id="method">
+                    <option value="0">Economy</option>
+                    <option value="1">Bussines</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label-add-edit">First and last name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Email" class="form-label-add-edit">Email address</label>
+                <input asp-for="@Model.Email" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Fare" class="form-label-add-edit">Fare (Business)</label>
+                <div class="input-group">
+                    <input asp-for="@Model.Fare" disabled class="form-control" id="far" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">лв.</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.Fare" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Book" />
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-controller="Reservation" style="color:aqua" asp-action="DestDetails" type="submit" value="Back" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/CustomScripts/DeleteUR - Copy.js"></script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#method').change(function () {
+            var method = $('option:selected', this).text();
+            if (method == "Economy") {
+                $('#far').text("100");
+            }
+            else if (method == "Bussines") {
+                $('#far').text("200");
+            }
+        });
+
+    });
+    // function TogleFare() {
+    //     if ($("davidim option:selected").text().includes("Economy")) {
+    //         $("#nana").val(100.0);
+    //     }
+    //     else {
+
+    // Model.Fare=50.5M;
+
+    //     }
+    // };
+</script>  

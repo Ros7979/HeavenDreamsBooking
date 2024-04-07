@@ -1,4 +1,5 @@
 ﻿using HeavenDreamsBooking.Core.Contracts;
+using HeavenDreamsBooking.Core.Services.Employee;
 using HeavenDreamsBooking.Core.Services.Flight;
 using HeavenDreamsBooking.Core.Services.Reservation;
 using HeavenDreamsBooking.Infrastrucure.Data;
@@ -13,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IFlightService, FlightService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             return services;
         }
 

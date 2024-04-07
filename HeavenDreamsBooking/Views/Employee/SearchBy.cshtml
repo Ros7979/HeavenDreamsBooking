@@ -11,7 +11,7 @@
 }
 <hr />
 <div>
-    @using (Html.BeginForm("SearchBy", "Flights", FormMethod.Get))
+    @using (Html.BeginForm("SearchBy", "Employee", FormMethod.Get))
     {
         <table>
             <tr>
@@ -26,7 +26,7 @@
                 <td>
                     <div class="calendar-filed-holder">
                         <span><b>Date:</b></span>
-                        <input class="form-control" type="date" name="dateOftravel" autocomplete="off" data-val="true" min="@DateTime.Now" aria-label="Choose adeparturedate." />
+                        <input class="form-control" type="date" name="dateOftravel" autocomplete="off" data-val="true" min="0" aria-label="Choose departure date." />
 
                     </div>
                 </td> 
@@ -82,7 +82,7 @@
                             @* <a asp-controller="Flights" asp-action="Edit" asp-route-id="@flights.Id" class="btn btn-warning">Edit</a> *@
                             <form class="mt-1" asp-controller="Flights" asp-action="Delete" asp-route-id="@Model.Id">
                                 <div class="d-grid gap-1">
-                                    <a asp-controller="Reservation" asp-action="AddReservation" asp-route-id="@Model.Id" class="btn btn-primary">Book</a>
+                                    <a asp-controller="Employee" asp-action="AddReservation" asp-route-id="@Model.Id" class="btn btn-primary">Book</a>
                                 </div>
                             </form>
                         </div>

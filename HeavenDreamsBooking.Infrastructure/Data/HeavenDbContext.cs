@@ -12,7 +12,6 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         {
 
         }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -45,7 +44,7 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
 
             SeedUsers();
             builder.Entity<IdentityUser>()
-                .HasData(BusinessManagerUser, AdminUser, EmployeeUser);
+                .HasData(BusinessManagerUser, AdminUser, EmployeeUser, user);
 
             SeedFlights();
             builder.Entity<FlightDetail>()
@@ -61,7 +60,11 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
 
             SeedRole();
             builder.Entity<IdentityRole>()
-                .HasData(seedRole);
+                .HasData(seedRole, seedRoleBM,seedRoleEmplyee, seedRoleClient);
+
+            SeedUserRole();
+            builder.Entity<IdentityUserRole<string>>()
+                .HasData(userRoleBM, userRoleAdmin, userRoleEmployee, userRoleUser);
 
             base.OnModelCreating(builder);
         }
@@ -77,7 +80,6 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         public DbSet<RegularFlier> RegularFliers { get; set; } = null!;
         public DbSet<Discount> Discounts { get; set; } = null!;
 
-
         //Data for seeding Database
         private IdentityUser BusinessManagerUser { get; set; } = null!;
         private IdentityUser AdminUser { get; set; } = null!;
@@ -85,7 +87,12 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
         private IdentityRole seedRoleBM { get; set; } = null!;
         private IdentityRole seedRoleEmplyee { get; set; } = null!;
         private IdentityRole seedRoleClient { get; set; } = null!;
+        private IdentityUserRole<string> userRoleBM { get; set; } = null!;
+        private IdentityUserRole<string> userRoleAdmin { get; set; } = null!;
+        private IdentityUserRole<string> userRoleEmployee { get; set; } = null!;
+        private IdentityUserRole<string> userRoleUser { get; set; } = null!;
         private IdentityUser EmployeeUser { get; set; } = null!;  
+        private IdentityUser user { get; set; } = null!;  
         private FlightDetail SOFBCN { get; set; } = null!;
         private FlightDetail SOFLCA { get; set; } = null!;
         private FlightDetail SOFATH { get; set; } = null!;
@@ -132,29 +139,66 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
                 EmailConfirmed = true
             };
             EmployeeUser.PasswordHash = hasher.HashPassword(EmployeeUser, "!123456aA");
+            user = new IdentityUser()
+            {
+                Id = "user1234-45er-u123-r86s-u3s2e1e87614",
+                UserName = "useruser@mail.bg",
+                NormalizedUserName = "useruser@mail.bg",
+                Email = "useruser@mail.bg",
+                NormalizedEmail = "useruser@mail.bg",
+                EmailConfirmed = true
+            };
+            user.PasswordHash = hasher.HashPassword(user, "!123456aA");
         }
 
         private void SeedRole()
         {
             seedRole = new IdentityRole()
             {
+                Id = "1a4b4694-c3d6-4085-8202-56758d2f2925",
                 Name = "Administrator",
                 NormalizedName = "ADMINISTRATOR",
             };
             seedRoleBM = new IdentityRole()
             {
+                Id = "bsmrol45-b34a-s67r-m123-b1s2m3r5o7l9",
                 Name = "BusinessManager",
                 NormalizedName = "BUSINESSMANAGER",
             };
             seedRoleEmplyee = new IdentityRole()
             {
+                Id = "e3pu12ro-em45-u1l3-r864-e3m2p1u8r6o2",
                 Name = "Employee",
                 NormalizedName = "EMPLOYEE",
             };
             seedRoleClient = new IdentityRole()
             {
-                Name = "Client",
-                NormalizedName = "CLIENT",
+                Id = "usle1234-45er-o1l3-r8le-u4s2e1e876ro",
+                Name = "User",
+                NormalizedName = "USER",
+            };
+        }
+        private void SeedUserRole()
+        {
+            userRoleBM = new IdentityUserRole<string>()
+            {
+                UserId = "bsm12345-b345-s678-m123-b1s2m3456789",
+                RoleId = "bsmrol45-b34a-s67r-m123-b1s2m3r5o7l9"
+            };
+            userRoleAdmin = new IdentityUserRole<string>()
+            {
+                UserId = "adm12345-a345-d678-m321-a3d2m1987654",
+                RoleId = "1a4b4694-c3d6-4085-8202-56758d2f2925"
+            };
+            userRoleEmployee = new IdentityUserRole<string>()
+            {
+                UserId = "empu1234-em45-u123-r864-e3m2p1u87652",
+                RoleId = "e3pu12ro-em45-u1l3-r864-e3m2p1u8r6o2"
+            };
+            userRoleUser = new IdentityUserRole<string>()
+            {
+                UserId = "user1234-45er-u123-r86s-u3s2e1e87614",
+                RoleId = "usle1234-45er-o1l3-r8le-u4s2e1e876ro"
             };
         }
 

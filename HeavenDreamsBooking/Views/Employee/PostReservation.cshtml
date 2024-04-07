@@ -1,0 +1,172 @@
+﻿@model List<Reservation>
+@{
+    ViewBag.Title = "Client reservation info";
+}
+<h1 class="text-center">@ViewBag.Title</h1>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Information ! </strong> @TempData["InfoMessage"]
+    </div>
+}
+<hr />
+<div>
+    @using (Html.BeginForm("PostReservation", "Employee", FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>
+                    <span><b>From:</b></span>
+                    @Html.TextBox("mail", null, new { Class = "form-control", placeholder = "Email " })
+                </td>
+                <td>
+                    <br />
+                    <input type="submit" value="Search reservation" class="btn btn-success" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<hr />
+@if (Model != null && Model.Any())
+{
+    <h3 class="text-center">Currently reservations</h3>
+    @* <form method="post"> *@
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th data-toggle="tooltip" data-placement="right" title="Flight number">Flight number</th>
+                <th data-toggle="tooltip" data-placement="right" title="Date of Jorney">Date of Jorney</th>
+                <th data-toggle="tooltip" data-placement="right" title="Class of reservation (economy/business)">Class of reservation</th>
+                <th data-toggle="tooltip" data-placement="right" title="Fare">Fare</th>
+                <th data-toggle="tooltip" data-placement="right" title="Reservation status">Status</th>
+                <th data-toggle="tooltip" data-placement="right" title="Confirm or cancel your reservation">Confirmation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (Reservation reservation in Model)
+                {
+                    if (reservation.TicketConfirmed == false && reservation.DateOfJorney > DateTime.Now)
+                    {
+                        <tr>
+                            <td>@reservation.FltNo</td>
+                            <td>@reservation.DateOfJorney</td>
+                            <td>@reservation.ClassOfRes</td>
+                            <td>@reservation.Fare</td>
+                            <td>@reservation.Status</td>
+                            <td>                    
+                                <form method="post" >                                  
+                                    <button class="btn btn-warning" type="submit" asp-route-id="@reservation.Id" value="PostReservation" style="width:auto">Confirm</button>
+                                </form>
+                                <p> </p>                               
+                                <a asp-controller="Employee" asp-action="Delete" class="btn btn-danger" asp-route-id="@reservation.Id">Delete</a>                                
+                            </td>
+
+                        </tr>
+                    }
+                    if (reservation.TicketConfirmed == true && reservation.DateOfJorney > DateTime.Now)
+                    {
+                        <tr>
+                            <td>@reservation.FltNo</td>
+                            <td>@reservation.DateOfJorney</td>
+                            <td>@reservation.ClassOfRes</td>
+                            <td>@reservation.Fare</td>
+                            <td>@reservation.Status</td>
+                            <td>
+                                <div class="d-grid gap-1">
+                                    <p></p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    @*  </form> *@
+    <br />
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr class="table-active">
+                <th data-toggle="tooltip" data-placement="right" title="Flight number">Flight number</th>
+                <th data-toggle="tooltip" data-placement="right" title="Date of Jorney">Date of Jorney</th>
+                <th data-toggle="tooltip" data-placement="right" title="Class of reservation (economy/business)">Class of reservation</th>
+                <th data-toggle="tooltip" data-placement="right" title="Fare">Fare</th>
+                <th data-toggle="tooltip" data-placement="right" title="Reservation status">Status</th>
+                <th data-toggle="tooltip" data-placement="right" title="Cancel your reservation">Cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (Reservation reservation in Model)
+                {
+                    if (reservation.TicketConfirmed == false)
+                    {
+                        <tr>
+                            <td>@reservation.FltNo</td>
+                            <td>@reservation.DateOfJorney</td>
+                            <td>@reservation.ClassOfRes</td>
+                            <td>@reservation.Fare</td>
+                            <td>@reservation.Status</td>
+                            <td>
+                                <form class="mt-2" asp-controller="Reservation" asp-action="Canceling" asp-route-id="@reservation.Id" method="post">
+                                    <input class="btn btn-primary" type="submit" value="Cancel" style="width:stretch" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+    <h3 class="text-center">Old reservations</h3>
+    <form>
+        <table class="table table-responsive table-bordered table-hover">
+            <thead>
+                <tr class="table-active">
+                    <th data-toggle="tooltip" data-placement="right" title="Flight number">Flight number</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Date of Jorney">Date of Jorney</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Class of reservation (economy/business)">Class of reservation</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Fare">Fare</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Reservation status">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (Reservation reservation in Model)
+                    {
+                        if (reservation.DateOfJorney < DateTime.Now)
+                        {
+                            <tr>
+                                <td>@reservation.FltNo</td>
+                                <td>@reservation.DateOfJorney</td>
+                                <td>@reservation.ClassOfRes</td>
+                                <td>@reservation.Fare</td>
+                                <td>@reservation.Status</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            You have no flights booked yet!
+        </div>
+    </div>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

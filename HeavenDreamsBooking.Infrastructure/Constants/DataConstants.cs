@@ -72,5 +72,6 @@
         public const string DateOnlyFormat = "yyyy-MM-dd";
         public const string StringLengthErrorMessage = "The field {0} must be between {2} and {1} characters long";
         public const string DecimalLenghtErrorMessage = "Value for {0} must be between {1} and {2}";
+        public const string SaveChangesExeptionMessage = "Data not saved to the database";
     }
 }

@@ -7,16 +7,19 @@
         <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Confirmation">Confirm</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="SearchBy">Search</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="SearchBy">Search</a>
     </li>
-    @*  @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
-    { *@
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="PostReservation">PostReservation</a>
+    </li>
+     @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+    {
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Admini" asp-action="ListRoles">AdminControl</a>
     </li>
-    @* } *@
-    @*    @if(signInManager.IsSignedIn(User) && User.IsInRole("BusinessManager"))
-    { *@
+    }
+       @if(signInManager.IsSignedIn(User) && User.IsInRole("BusinessManager"))
+    {
     <li>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -30,7 +33,7 @@
             </ul>
         </div>
     </li>
-    @*  } *@
+     }
 </ul>
 
 

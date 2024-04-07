@@ -4,6 +4,7 @@ using HeavenDreamsBooking.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeavenDreamsBooking.Infrastructure.Migrations
 {
     [DbContext(typeof(HeavenDbContext))]
-    partial class HeavenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240404194859_roles")]
+    partial class roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,7 +229,7 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "SOF-BCN",
                             From = "София",
                             ImageUrl = "https://wallpaperaccess.com/full/1322174.jpg",
-                            LaunchDate = new DateTime(2024, 4, 4, 23, 3, 13, 741, DateTimeKind.Local).AddTicks(8768),
+                            LaunchDate = new DateTime(2024, 4, 4, 22, 48, 58, 867, DateTimeKind.Local).AddTicks(4890),
                             SeatsBusines = 3,
                             SeatsEconomy = 5
                         },
@@ -243,7 +245,7 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "SOF-LCA",
                             From = "София",
                             ImageUrl = "https://www.goatsontheroad.com/wp-content/uploads/2022/11/Malindi-Beach-in-Limassol.jpeg",
-                            LaunchDate = new DateTime(2024, 4, 4, 23, 3, 13, 741, DateTimeKind.Local).AddTicks(8816),
+                            LaunchDate = new DateTime(2024, 4, 4, 22, 48, 58, 867, DateTimeKind.Local).AddTicks(4930),
                             SeatsBusines = 4,
                             SeatsEconomy = 4
                         },
@@ -259,7 +261,7 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "SOF-ATH",
                             From = "София",
                             ImageUrl = "https://th.bing.com/th/id/OIP.gtnO8Z0v_QVMykrG4JUJygHaE8?rs=1&pid=ImgDetMain",
-                            LaunchDate = new DateTime(2024, 4, 4, 23, 3, 13, 741, DateTimeKind.Local).AddTicks(8819),
+                            LaunchDate = new DateTime(2024, 4, 4, 22, 48, 58, 867, DateTimeKind.Local).AddTicks(4934),
                             SeatsBusines = 8,
                             SeatsEconomy = 10
                         },
@@ -275,7 +277,7 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                             FltNo = "ATH-SOF",
                             From = "Атина",
                             ImageUrl = "https://th.bing.com/th/id/OIP.gtnO8Z0v_QVMykrG4JUJygHaE8?rs=1&pid=ImgDetMain",
-                            LaunchDate = new DateTime(2024, 4, 4, 23, 3, 13, 741, DateTimeKind.Local).AddTicks(8823),
+                            LaunchDate = new DateTime(2024, 4, 4, 22, 48, 58, 867, DateTimeKind.Local).AddTicks(4936),
                             SeatsBusines = 8,
                             SeatsEconomy = 10
                         });
@@ -512,28 +514,28 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         new
                         {
                             Id = "1a4b4694-c3d6-4085-8202-56758d2f2925",
-                            ConcurrencyStamp = "218a2978-4c77-4792-ac68-93572f0612e7",
+                            ConcurrencyStamp = "2e6473c6-1a0a-4353-a664-8ebbf9a90eba",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "bsmrol45-b34a-s67r-m123-b1s2m3r5o7l9",
-                            ConcurrencyStamp = "ee859a49-5414-4254-b85e-4c764a1747dd",
+                            ConcurrencyStamp = "3d8785ba-9452-447d-ba3a-e4b1245f42ee",
                             Name = "BusinessManager",
                             NormalizedName = "BUSINESSMANAGER"
                         },
                         new
                         {
                             Id = "e3pu12ro-em45-u1l3-r864-e3m2p1u8r6o2",
-                            ConcurrencyStamp = "6beff526-e693-47c6-8939-ddad543205f0",
+                            ConcurrencyStamp = "67a4dfed-7ffc-4f4f-856e-0e1a9f83e25c",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
                             Id = "usle1234-45er-o1l3-r8le-u4s2e1e876ro",
-                            ConcurrencyStamp = "8098f6e5-733b-4039-a20f-7ce0eef7d71b",
+                            ConcurrencyStamp = "a6243959-58f7-41e0-bdcc-35f656be64b1",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -633,15 +635,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "bsm12345-b345-s678-m123-b1s2m3456789",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a8bea476-9fbb-4e67-bea1-e35ab512f514",
+                            ConcurrencyStamp = "dcdf4b3c-4769-49e6-b43c-3559675963bd",
                             Email = "isbusinessmanager@mail.bg",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "isbusinessmanager@mail.bg",
                             NormalizedUserName = "isbusinessmanager@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAED8vFOXG8U/T1DfqVGsGxQtX/1K97S9hpTvGKB1AdaWu0COmqEb/CLq5Scm/n+L6SA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO7sHDzpqiUxHcVHXvmYxN9jisyvseESbq8xLey/noQ0SdZEEjJUpGNbJJu1f78HRg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "46707ba3-e28c-4893-a3cd-3e58672b5c9d",
+                            SecurityStamp = "70ef85a6-47e1-4208-b4c8-ee264bd632c1",
                             TwoFactorEnabled = false,
                             UserName = "isbusinessmanager@mail.bg"
                         },
@@ -649,15 +651,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "adm12345-a345-d678-m321-a3d2m1987654",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ed10ce76-0e9a-4c58-9a21-2678ffeaea1f",
+                            ConcurrencyStamp = "1d1bfb9e-ee38-4693-895c-96f8e6b0f9e4",
                             Email = "pvadminuser@mail.bg",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "pvadminuser@mail.bg",
                             NormalizedUserName = "pvadminuser@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAUJDz/cx0fYy3z3aJ9GjuNUyAC+5bZZ5yQhCiRrNNgWU4hP3aXM/GfsdIAOdSADqA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBzfTCcSMPAPlOFfsNIAOHAtz4R5IM1yPt+QvZhVOF70cvsQynmi8sMNoTtw7jwcSQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ea7f5c71-6cda-45ef-9fbd-275341fc52dc",
+                            SecurityStamp = "84a8bd93-3589-4bfb-9466-6d54b66ac268",
                             TwoFactorEnabled = false,
                             UserName = "pvadminuser@mail.bg"
                         },
@@ -665,15 +667,15 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "empu1234-em45-u123-r864-e3m2p1u87652",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "995803d0-86eb-4cda-98eb-4d482d68fc0b",
+                            ConcurrencyStamp = "eb731518-2e92-499e-bfbc-ea9ac073f03c",
                             Email = "spemployuser@mail.bg",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "spemployuser@mail.bg",
                             NormalizedUserName = "spemployuser@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOm8QhXJN3bGu3QFnj0moAI2qzfxT7kZBe44nglTJCkf7QmKhEbf7tZA4aQpc3SzGQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKDGTuv/GphS1S2SDk9CiQQRl+CRmC9FzFKwwpp8B8IsPXcVu/uCZjrqYdAqx+uuhw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a810e11d-ff4f-408e-9685-b1c8674af0e0",
+                            SecurityStamp = "ac939af5-d5d0-4871-b33e-73be90b515c7",
                             TwoFactorEnabled = false,
                             UserName = "spemployuser@mail.bg"
                         },
@@ -681,15 +683,14 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                         {
                             Id = "user1234-45er-u123-r86s-u3s2e1e87614",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6c488d77-8a5e-4275-bb05-9f8143317785",
+                            ConcurrencyStamp = "01f231c1-1f43-4181-b073-20764f0d777e",
                             Email = "useruser@mail.bg",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "useruser@mail.bg",
                             NormalizedUserName = "useruser@mail.bg",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIq46+aMXXVTdtHVyXUuhPM9XG6C/+hUP4y+INmTOkf/+AWAbKpK/UmsHVj8Bhddwg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a5b1ae75-699f-40f6-b2bd-926c2e411615",
+                            SecurityStamp = "404a1c57-acfa-45fa-9c0a-3c3994e1ade8",
                             TwoFactorEnabled = false,
                             UserName = "useruser@mail.bg"
                         });
@@ -757,28 +758,6 @@ namespace HeavenDreamsBooking.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "bsm12345-b345-s678-m123-b1s2m3456789",
-                            RoleId = "bsmrol45-b34a-s67r-m123-b1s2m3r5o7l9"
-                        },
-                        new
-                        {
-                            UserId = "adm12345-a345-d678-m321-a3d2m1987654",
-                            RoleId = "1a4b4694-c3d6-4085-8202-56758d2f2925"
-                        },
-                        new
-                        {
-                            UserId = "empu1234-em45-u123-r864-e3m2p1u87652",
-                            RoleId = "e3pu12ro-em45-u1l3-r864-e3m2p1u8r6o2"
-                        },
-                        new
-                        {
-                            UserId = "user1234-45er-u123-r86s-u3s2e1e87614",
-                            RoleId = "usle1234-45er-o1l3-r8le-u4s2e1e876ro"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

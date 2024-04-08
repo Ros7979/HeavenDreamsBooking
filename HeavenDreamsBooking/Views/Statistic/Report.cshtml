@@ -1,0 +1,58 @@
+﻿@model Reports
+@{
+    ViewBag.Title = "REPORT";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Information ! </strong> @TempData["InfoMessage"]
+    </div>
+}
+<hr />
+<div>
+    @using (Html.BeginForm("Report", "Statistic", FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>
+                    <span><b>Search By:</b></span>
+                    @Html.RadioButton("searchBy", "FlightNo", true)
+                    <text>FlightNo</text>
+                    @Html.RadioButton("searchBy", "AllFlights", true)
+                    <text>AllFlights</text>
+                </td>
+                <td>
+                    <Span><b>FlightNo:</b></Span>
+                    @Html.TextBox("searchValue", null, new { Class = "form-control", placeholder = "Put FlightNo" })
+                </td>
+                <td>
+                    <div class="calendar-filed-holder">
+                        <span><b>Date From:</b></span>
+                        <input class="form-control" type="date" name="dateFrom" autocomplete="off" data-val="true" min="0" aria-label="Date From." />
+
+                    </div>
+                </td>
+                <td>
+                    <div class="calendar-filed-holder">
+                        <span><b>Date To:</b></span>
+                        <input class="form-control" type="date" name="dateTo" autocomplete="off" data-val="true" min="0" aria-label="Date To." />
+
+                    </div>
+                </td>
+                <td>
+                    <input type="submit" value="Search" class="btn btn-success" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<hr />
+@if (Model != null)
+{
+    <p style="margin:0; padding-top:1">Sum fare:  @Model.SumFare</p>
+    <p style="margin:0; padding-top:1">Sum all passengers:  @Model.SumTotalPassengers</p>
+}

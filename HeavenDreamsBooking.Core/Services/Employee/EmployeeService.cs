@@ -15,33 +15,44 @@ namespace HeavenDreamsBooking.Core.Services.Employee
         public void AddChangeFlightStatus(int id, string status)
         {
             var flightStatusRead = _context.FlightStatus.Find(id);
-            if (flightStatusRead == null) { }
-            if (status.ToLower().Trim() == "economy")
+            if (flightStatusRead != null)
             {
-                if (flightStatusRead?.StatusEconomy <= 0)
+                if (status.ToLower().Trim() == "economy")
                 {
-                    flightStatusRead.WaitListedEconomy += 1;
-                    _context.SaveChanges();
+                    try
+                    {
+                        if (flightStatusRead.StatusEconomy <= 0)
+                        {
+                            flightStatusRead.WaitListedEconomy += 1;
+                            _context.SaveChanges();
+                        }
+                        else if (flightStatusRead.StatusEconomy > 0)
+                        {
+                            flightStatusRead.StatusEconomy -= 1;
+                            _context.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex) { }
                 }
-                else if (flightStatusRead?.StatusEconomy > 0)
+                else
                 {
-                    flightStatusRead.StatusEconomy -= 1;
-                    _context.SaveChangesAsync();
+                    try
+                    {
+                        if (flightStatusRead.StatusBusiness <= 0)
+                        {
+                            flightStatusRead.WaitListedBusiness += 1;
+                            _context.SaveChanges();
+                        }
+                        else if (flightStatusRead.StatusBusiness > 0)
+                        {
+                            flightStatusRead.StatusBusiness -= 1;
+                            _context.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex) { }
                 }
             }
-            else
-            {
-                if (flightStatusRead?.StatusBusiness <= 0)
-                {
-                    flightStatusRead.WaitListedBusiness += 1;
-                    _context.SaveChanges();
-                }
-                else if (flightStatusRead?.StatusBusiness > 0)
-                {
-                    flightStatusRead.StatusBusiness -= 1;
-                    _context.SaveChangesAsync();
-                }
-            }
+
         }
 
         public void FillPassengerDetail(string email, decimal fare)
@@ -76,6 +87,34 @@ namespace HeavenDreamsBooking.Core.Services.Employee
                 }
                 catch { DbUpdateConcurrencyException due; }
                 {  }
+            }
+        }
+        public void CancelChangeFlightStatus(int id, string status)
+        {
+            var flightStatusRead = _context.FlightStatus.Find(id);
+            if (flightStatusRead != null)
+            {
+                if (status.ToLower().Trim() == "economy")
+                {
+                    flightStatusRead.StatusEconomy += 1;
+                    _context.SaveChanges();
+                    if (flightStatusRead.WaitListedEconomy > 0)
+                    {
+                        flightStatusRead.WaitListedEconomy -= 1;
+                        _context.SaveChanges();
+                    }
+                }
+                else
+                {
+                    flightStatusRead.StatusBusiness += 1;
+                    _context.SaveChanges();
+                    if (flightStatusRead.WaitListedBusiness > 0)
+                    {
+                        flightStatusRead.WaitListedBusiness -= 1;
+                        _context.SaveChanges();
+                    }
+
+                }
             }
         }
     }

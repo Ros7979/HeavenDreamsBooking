@@ -6,34 +6,42 @@
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Confirmation">Confirm</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="SearchBy">Search</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="PostReservation">PostReservation</a>
-    </li>
-     @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+    @if (signInManager.IsSignedIn(User) && User.IsInRole("Employee"))
     {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Admini" asp-action="ListRoles">AdminControl</a>
-    </li>
+        <li>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    EmployeeControl
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/Employee/SearchBy">SearchBy</a></li>
+                    <li><a class="dropdown-item" href="/Employee/PostReservation">PostReservation</a></li>
+                </ul>
+            </div>
+        </li>
     }
-       @if(signInManager.IsSignedIn(User) && User.IsInRole("BusinessManager"))
+    @if (signInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
     {
-    <li>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Manager
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="/Flights/Details">FlightsDetails</a></li>
-                <li><a class="dropdown-item" href="/Flights/Add">AddFlight</a></li>
-                <li><a class="dropdown-item" href="/Flights/DiscountsSet">Discount</a></li>
-                <li><a class="dropdown-item" href="/Statistic/PassengerFlightsDetail">PassengerDetail</a></li>
-            </ul>
-        </div>
-    </li>
-     }
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Admini" asp-action="ListRoles">AdminControl</a>
+        </li>
+    }
+    @if (signInManager.IsSignedIn(User) && User.IsInRole("BusinessManager"))
+    {
+        <li>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Manager
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/Flights/Details">FlightsDetails</a></li>
+                    <li><a class="dropdown-item" href="/Flights/Add">AddFlight</a></li>
+                    <li><a class="dropdown-item" href="/Flights/DiscountsSet">Discount</a></li>
+                    <li><a class="dropdown-item" href="/Statistic/PassengerFlightsDetail">PassengerDetail</a></li>
+                </ul>
+            </div>
+        </li>
+    }
 </ul>
 
 

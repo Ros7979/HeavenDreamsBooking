@@ -47,9 +47,55 @@ namespace HeavenDreansBookingTest.Controllers
             return View(init);
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Report(string searchBy, string searchValue, DateTime dateFrom, DateTime dateTo)
         {
-            return View();
+            decimal sumFare = 0.0m;
+            int totalPassengers = 0;
+            if (dateFrom == default)
+            {
+                TempData["InfoMessage"] = "Please enter a date From.";
+                return View();
+            }
+            if (dateTo == default)
+            {
+                TempData["InfoMessage"] = "Please enter a date To.";
+                return View();
+            }
+            if (!string.IsNullOrEmpty(searchBy))
+            {
+                if (searchBy.ToLower() == "flightno")
+                {
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        sumFare = _context.DeparturedFlights.Where(dp => dp.FltNo.ToLower() == searchValue.ToLower() && dp.DateOfJorney >= dateFrom
+                      && dp.DateOfJorney <= dateTo).ToList().Sum(dp => dp.Fare);
+                        totalPassengers = _context.DeparturedFlights.Where(dp => dp.DateOfJorney >= dateFrom && dp.DateOfJorney <= dateTo).ToList().Count();
+                    }
+                    else
+                    {
+                        TempData["InfoMessage"] = "Please provide search value. Write Flight number.";
+                        return View();
+                    }
+                }
+                else
+                {
+                    sumFare = _context.DeparturedFlights.Where(dp => dp.DateOfJorney >= dateFrom
+                     && dp.DateOfJorney <= dateTo).ToList().Sum(dp => dp.Fare);
+                    totalPassengers = _context.DeparturedFlights.Where(dp => dp.DateOfJorney >= dateFrom && dp.DateOfJorney <= dateTo).ToList().Count();
+                }
+            }
+            else
+            {
+                TempData["InfoMessage"] = "Please provide search value.";
+                return View();
+            }
+            Reports reports = new Reports()
+            {
+                SumFare = sumFare,
+                SumTotalPassengers = totalPassengers
+            };
+            return View(reports);
         }
     }
 }

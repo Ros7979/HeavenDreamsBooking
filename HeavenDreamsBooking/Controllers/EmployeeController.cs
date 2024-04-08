@@ -98,7 +98,7 @@ namespace HeavenDreansBookingTest.Controllers
         [HttpGet]
         public async Task<IActionResult> AddReservation(int id)
         {            
-            FlightDetail getFlight = await _context.FlightDetails.FindAsync(id);
+            FlightDetail? getFlight = await _context.FlightDetails.FindAsync(id);
             string username = User.Identity?.Name!;
             if (username == null)
             {
@@ -125,8 +125,10 @@ namespace HeavenDreansBookingTest.Controllers
             if (!ModelState.IsValid) { return BadRequest(); }
             decimal fare = 0.0m;
             decimal isNotRegular = 0.0m;
+            string status = string.Empty;
             string email = User.FindFirstValue(ClaimTypes.Email);
             var flight = await _context.FlightDetails.FindAsync(id);
+            var flightStatus = await _context.FlightStatus.FindAsync(id);
             var regular = _context.RegularFliers.FirstOrDefault(e => e.Email.Trim() == email.Trim());
             if (regular == null)
             {
@@ -156,11 +158,27 @@ namespace HeavenDreansBookingTest.Controllers
                 {
                     var minusDiscountEco = isNotRegular * flight.FareEconomy;
                     fare = flight.FareEconomy - minusDiscountEco;
+                    if (flightStatus?.StatusEconomy == 0)
+                    {
+                        status = "Wait Listed";
+                    }
+                    else
+                    {
+                        status = "Reserved not confirmed";
+                    }
                 }
                 else
                 {
                     var minusDiscountBis = isNotRegular * flight.FareBusines;
-                    fare = flight.FareEconomy - minusDiscountBis;
+                    fare = flight.FareBusines - minusDiscountBis;
+                    if (flightStatus?.StatusBusiness == 0)
+                    {
+                        status = "Wait Listed";
+                    }
+                    else
+                    {
+                        status = "Reserved not confirmed";
+                    }
                 }
                 Reservation reservation = new Reservation()
                 {
@@ -170,7 +188,7 @@ namespace HeavenDreansBookingTest.Controllers
                     Name = addReservation.Name.Trim(),
                     ClassOfRes = addReservation.ClassOfRes.ToString(),
                     Fare = fare,
-                    Status = "Reserved not confirmed",
+                    Status = status,
                     DateOfRes = DateTime.Now,
                     TicketConfirmed = false,
                     FlightDetailsId = flight.Id,
@@ -197,7 +215,7 @@ namespace HeavenDreansBookingTest.Controllers
         [HttpGet]
         public  async Task<IActionResult> PostReservation(string mail)
         {
-            List<Reservation> allClientReservation = null;
+            List<Reservation> allClientReservation = new List<Reservation>();
             if (string.IsNullOrEmpty(mail))
             {
                 TempData["InfoMessage"] = "Please enter an Email address.";
@@ -277,14 +295,56 @@ namespace HeavenDreansBookingTest.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var task=await _context.Reservations.FindAsync(id);
+            var task = await _context.Reservations.FindAsync(id);
             if (task == null) { BadRequest(); }
             else
             {
-                _context.Reservations.Remove(task);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Reservations.Remove(task);
+                    await _context.SaveChangesAsync();
+                    _employeeService.CancelChangeFlightStatus(task.FlightDetailsId, task.ClassOfRes);
+                }
+                catch (Exception ex)
+                {
+                }
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Canceling(int id)
+        {
+            var reservationData = await _context.Reservations.FindAsync(id);
+            if (reservationData == null) { return BadRequest(); }
+            var refund = (90.0m / 100.0m) * reservationData.Fare;
+            FlightCanseled flightCanseled = new FlightCanseled()
+            {
+                FltNo = reservationData.FltNo,
+                DateOfJorney = reservationData.DateOfJorney,
+                Email = reservationData.Email,
+                Name = reservationData.Name,
+                UserId = reservationData.UserId,
+                CanselationDate = DateTime.Now,
+                Refund = (float)refund
+            };
+            await _context.FlightsCanseled.AddAsync(flightCanseled);
+            _context.Reservations.Remove(reservationData);
+            await _context.SaveChangesAsync();
+            _employeeService.CancelChangeFlightStatus(id, reservationData.ClassOfRes);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+            var reservationWaitListed = await _context.Reservations.FindAsync(id);
+            if (reservationWaitListed != null)
+            {
+                reservationWaitListed.ClassOfRes = "Reserved not confirmed";
+                await _context.SaveChangesAsync();
+            }
+            return View();
         }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);

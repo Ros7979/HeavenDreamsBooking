@@ -2,8 +2,13 @@ using HeavenDreamsBooking.Infrastrucure.Data;
 using HouseRentingSystem.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("HeavenDbContextConnection") ?? throw new InvalidOperationException("Connection string 'HeavenDbContextConnection' not found.");
+
+builder.Services.AddDbContext<HeavenDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
 //builder.Services.AddApplicationIdentity(builder.Configuration);

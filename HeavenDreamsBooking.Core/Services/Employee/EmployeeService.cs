@@ -117,5 +117,25 @@ namespace HeavenDreamsBooking.Core.Services.Employee
                 }
             }
         }
+        public void ChangeWaitListedStatus(int id, string status)
+        {
+            var flightStatusRead = _context.FlightStatus.Find(id);
+            if (flightStatusRead != null)
+            {
+                if (status.ToLower().Trim() == "economy")
+                {
+                    flightStatusRead.WaitListedEconomy -= 1;
+                }
+                else
+                {
+                    flightStatusRead.WaitListedBusiness -= 1;
+                }
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch { DbUpdateConcurrencyException due; }
+            }
+        }
     }
 }

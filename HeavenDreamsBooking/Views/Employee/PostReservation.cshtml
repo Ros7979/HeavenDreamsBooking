@@ -51,7 +51,7 @@
             {
                 foreach (Reservation reservation in Model)
                 {
-                    if (reservation.TicketConfirmed == false && reservation.DateOfJorney > DateTime.Now && !(reservation.ClassOfRes.ToLower() == "wait listed"))
+                    if (reservation.TicketConfirmed == false && reservation.DateOfJorney > DateTime.Now && reservation.Status.ToLower() != "wait listed")
                     {
                         <tr>
                             <td>@reservation.FltNo</td>
@@ -92,6 +92,7 @@
     </table>
     @*  </form> *@
     <br />
+    <h3 class="text-center">Wait Listed reservation</h3>
     <table class="table table-responsive table-bordered table-hover">
         <thead>
             <tr class="table-active">
@@ -108,7 +109,7 @@
             {
                 foreach (Reservation reservation in Model)
                 {
-                    if (reservation.ClassOfRes.ToLower() == "wait listed")
+                    if (reservation.Status.ToLower() == "wait listed")
                     {
                         <tr>
                             <td>@reservation.FltNo</td>
@@ -117,9 +118,9 @@
                             <td>@reservation.Fare</td>
                             <td>@reservation.Status</td>
                             <td>
-                                <form class="mt-2" asp-controller="Employee" asp-action="ChangeStatus" asp-route-id="@reservation.Id" method="post">
-                                    <input class="btn btn-primary" type="submit" value="Change" style="width:stretch" />
-                                </form>
+                                <a asp-controller="Employee" asp-action="ChangeStatus" class="btn btn-primary" asp-route-id="@reservation.Id" style="width:auto">Change</a>
+                                <p></p>
+                                <a asp-controller="Employee" asp-action="Delete" class="btn btn-danger" asp-route-id="@reservation.Id" style="width:auto">Delete</a>
                             </td>
                         </tr>
                     }

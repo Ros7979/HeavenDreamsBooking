@@ -17,9 +17,9 @@
                 <input asp-for="@Model.DateOfJorney" disabled class="form-control" />
                 <span asp-validation-for="@Model.DateOfJorney" class="text-danger"></span>
             </div>
-            <div class="form-group" id="davidim">
+            <div class="form-group" >
                 <label asp-for="ClassOfRes" class="form-label-add-edit">Class of reservation</label>
-                <select asp-for="@Model.ClassOfRes" class="form-control" onselect="run()">
+                <select asp-for="@Model.ClassOfRes" class="form-control" >
                     <option value="0">Economy</option>
                     <option value="1">Bussines</option>
                 </select>
@@ -35,44 +35,12 @@
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.Fare" class="form-label-add-edit">Fare (Business)</label>
-                <div class="input-group">                    
-                    <input asp-for="@Model.Fare" disabled class="form-control" />
-                    <div class="input-group-append">
-                        <span class="input-group-text">лв.</span>
-                    </div>
-                </div>
-                <span asp-validation-for="@Model.Fare" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
                 <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Book" />
-                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" asp-controller="Reservation" asp-action="DestDetails" type="submit" value="Back" />           
+                <input class="btn btn-primary mb-2 w-100 p-3 fw-bold" asp-controller="Home" asp-action="Index" type="submit" value="Back" />           
             </div>
         </form>
     </div>
 </div>
-@section Scripts {
-    <script src="~/js/CustomScripts/DeleteUR - Copy.js"></script>
-}
 
-@*     <script type="text/javascript">
-    $(document).ready(function () {
-        TogleFare();
 
-        $(#"davidim").change(function () {
-            TogleFare();
-        })
-
-    })
-    function TogleFare() {
-        if ($("davidim option:selected").text().includes("Economy")) {
-            @Model.Fare=parseFloat(@ViewBag.Flight).toFixed(2);
-            }
-        else {
-
-            @Model.Fare=parseFloat(@ViewBag.Flight1).toFixed(2);
-                 @Model.Fare = @ViewBag.Flight
-
-                }
-    };
-</script> *@  
+ 

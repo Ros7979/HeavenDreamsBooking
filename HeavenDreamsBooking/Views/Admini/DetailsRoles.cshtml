@@ -28,10 +28,10 @@
                         <td>@identityRole.NormalizedName</td>                                            
                         <td>
                             <div class="d-grid gap-1">
-                                <a asp-controller="Flights" asp-action="Edit" asp-route-id="@identityRole.Id" class="btn btn-warning">Edit</a>
-                                <form class="mt-1" asp-controller="Flights" asp-action="Delete" asp-route-id="@identityRole.Id">
+                                <a asp-controller="Admini" asp-action="EditRole" asp-route-id="@identityRole.Id" class="btn btn-warning">Edit</a>
+                                <form class="mt-1" asp-controller="Admini" asp-action="DeleteRole" asp-route-id="@identityRole.Id">
                                     <div class="d-grid gap-1">
-                                        <a asp-controller="Flights" asp-action="Delete" asp-route-id="@identityRole.Id" class="btn btn-danger">Delete</a>
+                                        <a asp-controller="Admini" asp-action="DeleteRole" asp-route-id="@identityRole.Id" class="btn btn-danger">Delete</a>
                                     </div>
                                 </form>
                             </div>

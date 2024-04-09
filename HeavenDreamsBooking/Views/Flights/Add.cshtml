@@ -31,12 +31,12 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.DepTime" class="form-label-add-edit">Departure Time</label>
-                <input asp-for="@Model.DepTime" class="form-control" aria-required="true"  />
+                <input asp-for="@Model.DepTime" class="form-control" aria-required="true" min=@DateTime.Now.AddDays(5).ToString("yyyy-MM-dd") />
                 <span asp-validation-for="@Model.DepTime" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.ArrTime" class="form-label-add-edit">Arrival Time</label>
-                <input asp-for="@Model.ArrTime" class="form-control" aria-required="true" />               
+                <input asp-for="@Model.ArrTime" class="form-control" aria-required="true" min=@DateTime.Now.AddDays(5).ToString("yyyy-MM-dd") />
                 <span asp-validation-for="@Model.ArrTime" class="text-danger"></span>
             </div>
             <div class="mb-3">

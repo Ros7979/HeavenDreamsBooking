@@ -22,19 +22,22 @@ namespace HeavenDreamsBooking.Core.Models.Flight
 
         [Required]
         [Display(Name ="Flight image url")]
+        [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; } = null!;
              
         [Required]
         [IsGreater(ErrorMessage ="The date should be greater then the current date")]
+        [DataType(DataType.DateTime)]
         public DateTime DepTime { get; set; }
              
         [Required]
         [IsGreater(ErrorMessage = "The date should be greater then the current date")]
+        [DataType(DataType.DateTime)]
         public DateTime ArrTime { get; set; }
 
         [Required]
         [StringLength(AircraftTypeMaxLength, MinimumLength = AircraftTypeMinLength)]
-        [Display(Name = "Type of aircraft")]
+        [Display(Name = "Aircraft type")]
         public string AircraftType { get; set; } = null!;
 
         [Required]

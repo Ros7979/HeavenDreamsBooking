@@ -341,8 +341,9 @@ namespace HeavenDreansBookingTest.Controllers
             var reservationWaitListed = await _context.Reservations.FindAsync(id);
             if (reservationWaitListed != null)
             {
-                reservationWaitListed.ClassOfRes = "Reserved not confirmed";
+                reservationWaitListed.Status = "Reserved not confirmed";
                 await _context.SaveChangesAsync();
+                _employeeService.ChangeWaitListedStatus(reservationWaitListed.FlightDetailsId, reservationWaitListed.ClassOfRes);
             }
             return View();
         }

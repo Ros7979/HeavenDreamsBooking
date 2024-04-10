@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HeavenDreamsBooking.Infrastrucure.Data
 {
-    public class HeavenDbContext : IdentityDbContext
+    public class HeavenDbContext : IdentityDbContext<IdentityUser>
     {
         public HeavenDbContext(DbContextOptions<HeavenDbContext> options)
             : base(options)

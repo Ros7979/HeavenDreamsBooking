@@ -57,30 +57,7 @@
     </div>
 </div>
 @section Scripts {
-    <script src="~/js/CustomScripts/DeleteUR - Copy.js"></script>
+    <partial name="_ValidationScriptsPartial" />
 }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#method').change(function () {
-            var method = $('option:selected', this).text();
-            if (method == "Economy") {
-                $('#far').text("100");
-            }
-            else if (method == "Bussines") {
-                $('#far').text("200");
-            }
-        });
-
-    });
-    // function TogleFare() {
-    //     if ($("davidim option:selected").text().includes("Economy")) {
-    //         $("#nana").val(100.0);
-    //     }
-    //     else {
-
-    // Model.Fare=50.5M;
-
-    //     }
-    // };
-</script>  
+ 

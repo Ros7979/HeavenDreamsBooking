@@ -16,6 +16,7 @@
         <table>
             <tr>
                 <td>
+                    <br />
                     <span><b>Search By:</b></span>
                     @Html.RadioButton("searchBy", "FlightNo", true)
                     <text>FlightNo</text>
@@ -41,6 +42,7 @@
                     </div>
                 </td>
                 <td>
+                    <br />
                     <input type="submit" value="Search" class="btn btn-success" />
                 </td>
                 <td>
@@ -55,4 +57,7 @@
 {
     <p style="margin:0; padding-top:1">Sum fare:  @Model.SumFare</p>
     <p style="margin:0; padding-top:1">Sum all passengers:  @Model.SumTotalPassengers</p>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -242,7 +242,7 @@ namespace HeavenDreamsBooking.Infrastrucure.Data
             {
                 Id = 4,
                 FltNo = "ATH-SOF",
-                DateOfJorney = new DateTime(2024, 10, 10, 06, 30, 00),
+                DateOfJorney = new DateTime(2024, 10, 11, 08, 30, 00),
                 StatusEconomy = 8,
                 StatusBusiness = 10,
                 WaitListedEconomy = 0,

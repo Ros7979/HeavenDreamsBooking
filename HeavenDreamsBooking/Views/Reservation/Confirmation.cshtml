@@ -67,7 +67,7 @@
                 <th data-toggle="tooltip" data-placement="right" title="Class of reservation (economy/business)">Class of reservation</th>
                 <th data-toggle="tooltip" data-placement="right" title="Fare">Fare</th>
                 <th data-toggle="tooltip" data-placement="right" title="Reservation status">Status</th>
-                <th data-toggle="tooltip" data-placement="right" title="Cancel your reservation">Cancel</th>
+                <th data-toggle="tooltip" data-placement="right" title="Cancel your reservation">Cancel reservation</th>
             </tr>
         </thead>
         <tbody>
@@ -83,9 +83,9 @@
                             <td>@reservation.ClassOfRes</td>
                             <td>@reservation.Fare</td>
                             <td>@reservation.Status</td>
-                            <td>
+                            <td class="text-center">
                                 <form class="mt-2" asp-controller="Reservation" asp-action="Canceling" asp-route-id="@reservation.Id" method="post">
-                                    <input class="btn btn-primary" type="submit" value="Cancel" style="width:stretch" />
+                                    <input class="btn btn-warning" type="submit" value="Cancel" style="width:stretch" />
                                 </form>
                             </td>
                         </tr>

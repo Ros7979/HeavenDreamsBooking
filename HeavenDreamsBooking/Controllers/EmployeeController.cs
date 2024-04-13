@@ -331,7 +331,7 @@ namespace HeavenDreansBookingTest.Controllers
             await _context.FlightsCanseled.AddAsync(flightCanseled);
             _context.Reservations.Remove(reservationData);
             await _context.SaveChangesAsync();
-            _employeeService.CancelChangeFlightStatus(id, reservationData.ClassOfRes);
+            _employeeService.CancelChangeFlightStatus(reservationData.FlightDetailsId, reservationData.ClassOfRes);
             return RedirectToAction("Index", "Home");
         }
 

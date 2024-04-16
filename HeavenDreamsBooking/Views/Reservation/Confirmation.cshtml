@@ -23,7 +23,7 @@
                 {
                     foreach (Reservation reservation in Model)
                     {
-                        if (reservation.TicketConfirmed == false && reservation.DateOfJorney > DateTime.Now)
+                        if (reservation.TicketConfirmed == false && reservation.DateOfJorney > DateTime.Now && reservation.Status.ToLower().Trim() != "wait listed")
                         {
                             <tr>
                                 <td>@reservation.FltNo</td>
@@ -53,12 +53,28 @@
                                 </td>
                             </tr>
                         }
+                        if (reservation.TicketConfirmed == false && reservation.DateOfJorney > DateTime.Now && reservation.Status.ToLower().Trim() == "wait listed")
+                        {
+                            <tr>
+                                <td>@reservation.FltNo</td>
+                                <td>@reservation.DateOfJorney</td>
+                                <td>@reservation.ClassOfRes</td>
+                                <td>@reservation.Fare</td>
+                                <td>@reservation.Status</td>
+                                <td>
+                                    <div class="d-grid gap-1">
+                                        <p></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     }
                 }
             </tbody>
         </table>
     </form>
     <br />
+    <h3 class="text-center">Cancel reservation</h3>
     <table class="table table-responsive table-bordered table-hover">
         <thead>
             <tr class="table-active">

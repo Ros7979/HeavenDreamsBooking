@@ -3,6 +3,7 @@ using HeavenDreamsBooking.Core.Enumerations;
 using HeavenDreamsBooking.Core.Models.Reservation;
 using HeavenDreamsBooking.Infrastructure.Constants;
 using HeavenDreamsBooking.Infrastructure.Data.Models;
+using HeavenDreamsBooking.Infrastructure.Migrations;
 using HeavenDreamsBooking.Infrastrucure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -65,8 +66,10 @@ namespace HeavenDreamsBooking.Controllers
             if (!ModelState.IsValid) { return BadRequest(); }
             decimal fare = 0.0m;
             decimal isNotRegular = 0.0m;
+            string status = string.Empty;
             string email = User.FindFirstValue(ClaimTypes.Email);
             var flight = await _context.FlightDetails.FindAsync(id);
+            var flightStatus = await _context.FlightStatus.FindAsync(id);
             var regular = _context.RegularFliers.FirstOrDefault(e => e.Email.Trim() == email.Trim());
             if (regular == null)
             {
@@ -76,10 +79,10 @@ namespace HeavenDreamsBooking.Controllers
             {
                 isNotRegular = (decimal)regular!.Discount / 100.0m;
             }        
-            var reservationExist = _context.Reservations.Where(r => r.FlightDetailsId == id);
+            var reservationExist = _context.Reservations.Where(r => r.FlightDetailsId == id && r.Email==email);
             if (reservationExist.Any())
             {
-                TempData["msg"] = "You have already booked that flight";
+                TempData["InfoMessage"] = "You have already booked that flight";
                 return View();
             }
             else
@@ -96,11 +99,27 @@ namespace HeavenDreamsBooking.Controllers
                 {
                     var minusDiscountEco = isNotRegular * flight.FareEconomy;
                     fare = flight.FareEconomy - minusDiscountEco;
+                    if (flightStatus?.StatusEconomy == 0)
+                    {
+                        status = "Wait Listed";
+                    }
+                    else
+                    {
+                        status = "Reserved not confirmed";
+                    }
                 }
                 else
                 {
                     var minusDiscountBis = isNotRegular * flight.FareBusines;
                     fare = flight.FareBusines - minusDiscountBis;
+                    if (flightStatus?.StatusBusiness == 0)
+                    {
+                        status = "Wait Listed";
+                    }
+                    else
+                    {
+                        status = "Reserved not confirmed";
+                    }
                 }
                 Reservation reservation = new Reservation()
                 {
@@ -110,7 +129,7 @@ namespace HeavenDreamsBooking.Controllers
                     Name = addReservation.Name.Trim(),
                     ClassOfRes = addReservation.ClassOfRes.ToString(),
                     Fare = fare,
-                    Status = "Reserved not confirmed",
+                    Status = status,
                     DateOfRes = DateTime.Now,
                     TicketConfirmed = false,
                     FlightDetailsId = flight.Id,
@@ -119,7 +138,7 @@ namespace HeavenDreamsBooking.Controllers
                 await _context.Reservations.AddAsync(reservation);
                 await _context.SaveChangesAsync();
                 AddChangeFlightStatus(flight.Id, addReservation.ClassOfRes.ToString());
-                return View("Confirmation");
+                return RedirectToAction("Confirmation");
 
             }
         }
@@ -174,7 +193,21 @@ namespace HeavenDreamsBooking.Controllers
             };
             await _context.DeparturedFlights.AddAsync(departuredFlight);
             await _context.SaveChangesAsync();
-            FillPassengerDetail(mail, departuredFlight.Fare);
+            //  FillPassengerDetail(mail, departuredFlight.Fare);
+            passengerId = _context.PassengerDetails.SingleOrDefault(r => r.Email.ToLower().Trim() == mail.ToLower().Trim());
+            if (passengerId != null)
+            {
+                passengerId.TotalTimesFlown += 1;
+                passengerId.FareCollected += departuredFlight.Fare;
+                await _context.SaveChangesAsync();                
+                var regularFlier = _context.RegularFliers.Find(passengerId.Id);               
+                var discountSetSmall = _context.Discounts.Find(1);
+                if (passengerId?.FareCollected > discountSetSmall?.FareLimit || passengerId?.TotalTimesFlown > discountSetSmall?.TotalFlightsLimit)
+                {
+                    regularFlier!.Discount = discountSetSmall.DiscountGiven;
+                    await _context.SaveChangesAsync();
+                }
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -213,31 +246,6 @@ namespace HeavenDreamsBooking.Controllers
             }
             catch (Exception ex) { }
             return RedirectToAction("Index", "Home");
-        }
-
-        private void FillPassengerDetail(string email, decimal fare)
-        {
-            var passengerId = _context.PassengerDetails.SingleOrDefault(r => r.Email.ToLower().Trim() == email.ToLower().Trim());
-            if (passengerId != null)
-            {
-                passengerId.TotalTimesFlown += 1;
-                passengerId.FareCollected += fare;
-                _context.SaveChangesAsync();
-                RegularFlierFill(passengerId.Id);
-            }
-        }
-
-        private void RegularFlierFill(int id)
-        {
-            var regularFlier = _context.RegularFliers.Find(id);
-            var passengerDetail = _context.PassengerDetails.Find(id);
-            var discountSetSmall = _context.Discounts.Find(1);
-            var discountSetBig = _context.Discounts.Find(2);
-            if (passengerDetail?.FareCollected > discountSetSmall?.FareLimit || passengerDetail?.TotalTimesFlown > discountSetSmall?.TotalFlightsLimit)
-            {
-                regularFlier!.Discount = discountSetSmall.DiscountGiven;
-                _context.SaveChangesAsync();
-            }        
         }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);    
@@ -287,25 +295,30 @@ namespace HeavenDreamsBooking.Controllers
             if (flightStatusRead != null)
             {
                 if (status.ToLower().Trim() == "economy")
-                {
-                    flightStatusRead.StatusEconomy += 1;
-                    _context.SaveChanges();
+                {                    
                     if (flightStatusRead.WaitListedEconomy > 0)
                     {
                         flightStatusRead.WaitListedEconomy -= 1;
                         _context.SaveChanges();
                     }
+                    else
+                    {
+                        flightStatusRead.StatusEconomy += 1;
+                        _context.SaveChanges();
+                    }
                 }
                 else
-                {
-                    flightStatusRead.StatusBusiness += 1;
-                    _context.SaveChanges();
+                {                    
                     if (flightStatusRead.WaitListedBusiness > 0)
                     {
                         flightStatusRead.WaitListedBusiness -= 1;
                         _context.SaveChanges();
                     }
-
+                    else
+                    {
+                        flightStatusRead.StatusBusiness += 1;
+                        _context.SaveChanges();
+                    }
                 }
             }
         }

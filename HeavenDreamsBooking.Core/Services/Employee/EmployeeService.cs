@@ -14,7 +14,7 @@ namespace HeavenDreamsBooking.Core.Services.Employee
 
         public void AddChangeFlightStatus(int id, string status)
         {
-            var flightStatusRead = _context.FlightStatus.Find(id);
+            var flightStatusRead = _context.FlightStatus.FirstOrDefault(f => f.FlightDetailId == id);
             if (flightStatusRead != null)
             {
                 if (status.ToLower().Trim() == "economy")
@@ -95,31 +95,36 @@ namespace HeavenDreamsBooking.Core.Services.Employee
             if (flightStatusRead != null)
             {
                 if (status.ToLower().Trim() == "economy")
-                {
-                    flightStatusRead.StatusEconomy += 1;
-                    _context.SaveChanges();
+                {                    
                     if (flightStatusRead.WaitListedEconomy > 0)
                     {
                         flightStatusRead.WaitListedEconomy -= 1;
                         _context.SaveChanges();
                     }
+                    else
+                    {
+                        flightStatusRead.StatusEconomy += 1;
+                        _context.SaveChanges();
+                    }
                 }
                 else
-                {
-                    flightStatusRead.StatusBusiness += 1;
-                    _context.SaveChanges();
+                {                    
                     if (flightStatusRead.WaitListedBusiness > 0)
                     {
                         flightStatusRead.WaitListedBusiness -= 1;
                         _context.SaveChanges();
                     }
-
+                    else
+                    {
+                        flightStatusRead.StatusBusiness += 1;
+                        _context.SaveChanges();
+                    }
                 }
             }
         }
         public void ChangeWaitListedStatus(int id, string status)
         {
-            var flightStatusRead = _context.FlightStatus.Find(id);
+            var flightStatusRead = _context.FlightStatus.FirstOrDefault(f => f.FlightDetailId == id);
             if (flightStatusRead != null)
             {
                 if (status.ToLower().Trim() == "economy")

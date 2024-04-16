@@ -3,6 +3,12 @@
     ViewBag.Title = "Book your flight";
 }
 <h1 class="text-center">@ViewBag.Title</h1>
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Information ! </strong> @TempData["InfoMessage"]
+    </div>
+}
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">

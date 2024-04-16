@@ -20,6 +20,7 @@ namespace HeavenDreamsBooking.Core.Services.Flight
                 .Select(c => new FlightIndexServiceModel
                 {
                     Id = c.Id,
+                    FltNo=c.FltNo,
                     From = c.From,
                     Destination = c.Destination,
                     ImageUrl = c.ImageUrl,

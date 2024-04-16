@@ -1,5 +1,7 @@
 ﻿using HeavenDreamsBooking.Core.Contracts;
+using HeavenDreamsBooking.Core.Models.Home;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace HeavenDreamsBooking.Controllers
 {
@@ -15,8 +17,19 @@ namespace HeavenDreamsBooking.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var flights = await _flightService.AllFlights();
-            return View(flights);
+            var flights =  _flightService.AllFlights();
+            List<FlightIndexServiceModel> distinctList = new List<FlightIndexServiceModel>();
+            Dictionary<string, IEnumerable<FlightIndexServiceModel>> dict = new Dictionary<string, IEnumerable<FlightIndexServiceModel>>();
+            foreach (FlightIndexServiceModel flight in await flights)
+            {
+                string flight1 = flight.FltNo;
+                bool exists = distinctList.Any(cf => cf.FltNo.ToLower().Contains(flight1.ToLower()));
+                if (!exists)
+                {
+                    distinctList.Add(flight);
+                }
+            }
+            return View(distinctList);
         }
 
         public IActionResult Privacy()

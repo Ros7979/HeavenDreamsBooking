@@ -107,9 +107,7 @@ namespace HeavenDreansBookingTest.Controllers
             if (getFlight == null)
             {
                 return BadRequest();
-            }
-            // ViewBag.Flight = getFlight.FareEconomy;
-            // ViewBag.Flight1 = getFlight.FareBusines;
+            }          
             AddReservationBook reservation = new AddReservationBook()
             {
                 Id = id,
@@ -370,7 +368,6 @@ namespace HeavenDreansBookingTest.Controllers
             }
             return View();
         }
-
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }

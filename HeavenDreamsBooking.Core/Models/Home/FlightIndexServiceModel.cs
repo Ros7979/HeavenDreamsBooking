@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HeavenDreamsBooking.Core.Models.Home
+﻿namespace HeavenDreamsBooking.Core.Models.Home
 {
     public class FlightIndexServiceModel
     {

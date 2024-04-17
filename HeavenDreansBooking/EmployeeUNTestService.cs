@@ -114,22 +114,5 @@ namespace HeavenDreansBookingTest.UnitTest
             Assert.True(d != null);
             Assert.True(d.WaitListedBusiness == 1);
         }
-
-        //[Test]
-        //public void Test_RegularFlierFill()
-        //{
-        //    var regularFligherId = 1;
-        //    var regularFligherId2 = 2;
-        //    IEmployeeService service = new EmployeeService(this.dbContext);
-        //    service.RegularFlierFill(regularFligherId);
-        //    var regFlier = this.regularFliers.FirstOrDefault(d => d.Id == regularFligherId);
-        //    var regFlier2 = this.regularFliers.FirstOrDefault(d => d.Id == regularFligherId2);
-        //    var discount = this.discounts.FirstOrDefault(d => d.Id == 1);
-        //    Assert.True(regFlier != null);
-        //    Assert.True(discount != null);
-        //    Assert.True(regFlier2 != null);
-        //    Assert.True(regFlier?.Discount == discount?.DiscountGiven);
-        //    Assert.True(regFlier2?.Discount == 0);
-        //}
     }
 }

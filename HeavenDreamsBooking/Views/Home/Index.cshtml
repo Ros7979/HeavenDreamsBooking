@@ -4,23 +4,14 @@
     ViewData["Title"] = "Home Page";
     var flights = Model.ToList();
 }
-
+<h1 class="text-center">Welcome to the best place to book flights!</h1>
 @if (!flights.Any())
 {
-    <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">Welcome to the best place for renting flights!</h1>
+    <div class="mt-4 p-5 bg-light">       
         <p class="lead">
-            There are no flights in the system currently available.
-            Why don't you just add one?
+            There are no flights in the system currently available.            
         </p>
-        <hr class="my-4">
-        <p class="lead">
-            @if (User.Identity!.IsAuthenticated)
-            {
-                <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg"
-                   role="button">Add Flight</a>
-            }
-        </p>
+        <hr class="my-4">    
     </div>
 }
 
@@ -32,11 +23,7 @@
         {
             var flight = flights[i];
             <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
-                <img class="d-block w-100" style="height:330px" src="@flight.ImageUrl" alt="@flight.From">
-                @*  @if (User.Identity?.IsAuthenticated == true)
-            { *@
-
-                @*  } *@
+                <img class="d-block w-100" style="height:330px" src="@flight.ImageUrl" alt="@flight.From">      
 
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
@@ -56,6 +43,7 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+<div id="id_essay" class="essay-v3-wrap m-b-48-24 essay-v3-show-more"><h2 class="essay-v3-title">Why Book Flights with Heaven Dreams Booking</h2><div class="essay-v3-content-wrap"><div class="essay-v3-content" style="height: auto;"><h3 id="82kj0" style="margin-top:0px"><strong><span style="color:#242424">Flights to Suit You</span></strong></h3><p><span style="color:#242424">Ready to jet off? Booking a flight is the first step to an exciting getaway. However, with so many things to consider, finding cheap flights is not always the easiest of tasks. That</span><span style="color:#000102"><span style="font-size:14px">'</span></span><span style="color:#242424">s why, at Trip.com, we</span><span style="color:#000102"><span style="font-size:14px">'</span></span><span style="color:#242424">ve made things simple. Letting you search and compare flights from thousands of different airlines to destinations all over the world, it</span><span style="color:#000102"><span style="font-size:14px">'</span></span><span style="color:#242424">s never been easier to find flight tickets to suit you. From economy to first-class airline tickets, direct to connecting flights and return and one-way tickets, you can filter your search to suit your plans and budget. Whether it</span><span style="color:#000102"><span style="font-size:14px">'</span></span><span style="color:#242424">s for a long-haul family holiday, romantic weekend break, or a professional business trip, in just a few clicks you can be on your way to your chosen destination. </span></p><h3 id="4k49i"><strong><span style="color:#242424">Book Cheap Flights Today</span></strong></h3><p><span style="color:#242424">There are plenty of other ways you can save money on flights, too. You can look out for our flight flash sales, sign up to price alerts which let you know when flight prices have dropped, and download the Trip.com app to get money off.</span> <span style="color:#242424">Joining the Trip.com loyalty program also gives you access to exclusive member-only offers. Not only that, but you can also earn Trip Coins which can be redeemed on your next booking. And don</span><span style="color:#000102"><span style="font-size:14px"><span style="background-color:#d6e9ff">'</span></span></span><span style="color:#242424">t worry if you get stuck along the way, as our award-winning 24/7 customer service will always be here to help.</span></p><h3 id="2tl2d"><span style="color:#242424">Tips of How to Book Cheap Fligths</span></h3><h4 id="b3vo4"><span style="color:#242424">Fly during the working weekdays</span></h4><p><span style="color:#242424">Opting to take your flight during the working week can save you money as flight prices for departures during the working week, especially Tuesdays and Wednesdays, are cheaper.</span></p><h4 id="39af9"></div><div class="essay-v3-btn-wrap"></div></div></div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

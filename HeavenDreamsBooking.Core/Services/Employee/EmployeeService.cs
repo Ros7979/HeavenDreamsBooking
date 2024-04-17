@@ -67,28 +67,22 @@ namespace HeavenDreamsBooking.Core.Services.Employee
                     _context.SaveChangesAsync();
                 }
                 catch { DbUpdateConcurrencyException due; }
-                {  }
-                RegularFlierFill(passengerId.Id);
+                {  }               
+                var regularFlier = _context.RegularFliers.Find(passengerId.Id);                
+                var discountSetSmall = _context.Discounts.Find(1);
+                if (passengerId?.FareCollected > discountSetSmall?.FareLimit | (passengerId?.TotalTimesFlown > discountSetSmall?.TotalFlightsLimit))
+                {
+                    regularFlier!.Discount = discountSetSmall!.DiscountGiven;
+                    try
+                    {
+                        _context.SaveChangesAsync();
+                    }
+                    catch { DbUpdateConcurrencyException due; }
+                    { }
+                }
             }
         }
 
-        public void RegularFlierFill(int id)
-        {
-            var regularFlier = _context.RegularFliers.Find(id);
-            var passengerDetail = _context.PassengerDetails.Find(id);
-            var discountSetSmall = _context.Discounts.Find(1);
-            var discountSetBig = _context.Discounts.Find(2);
-            if (passengerDetail?.FareCollected > discountSetSmall?.FareLimit || passengerDetail?.TotalTimesFlown > discountSetSmall?.TotalFlightsLimit)
-            {
-                regularFlier!.Discount = discountSetSmall.DiscountGiven;
-                try
-                {
-                    _context.SaveChangesAsync();
-                }
-                catch { DbUpdateConcurrencyException due; }
-                {  }
-            }
-        }
         public void CancelChangeFlightStatus(int id, string status)
         {
             var flightStatusRead = _context.FlightStatus.Find(id);

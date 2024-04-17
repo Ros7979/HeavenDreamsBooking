@@ -288,8 +288,31 @@ namespace HeavenDreansBookingTest.Controllers
                 await _context.SaveChangesAsync();
             }
             catch { DbUpdateConcurrencyException due; }
-            { }
-            _employeeService.FillPassengerDetail(mail, departuredFlight.Fare);
+            { }           
+            if (passengerId != null)
+            {
+                passengerId.TotalTimesFlown += 1;
+                passengerId.FareCollected += reservationData.Fare;
+                passengerId.Name = reservationData.Name;
+                try
+                {
+                 await   _context.SaveChangesAsync();
+                }
+                catch { DbUpdateConcurrencyException due; }
+                { }               
+                var regularFlier = _context.RegularFliers.Find(passengerId.Id);               
+                var discountSetSmall = _context.Discounts.Find(1);
+                if (passengerId?.FareCollected > discountSetSmall?.FareLimit | (passengerId?.TotalTimesFlown > discountSetSmall?.TotalFlightsLimit))
+                {
+                    regularFlier!.Discount = discountSetSmall!.DiscountGiven;
+                    try
+                    {
+                       await _context.SaveChangesAsync();
+                    }
+                    catch { DbUpdateConcurrencyException due; }
+                    { }
+                }
+            }
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
